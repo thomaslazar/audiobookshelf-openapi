@@ -658,7 +658,14 @@
                 "operationId": "updateLibrary",
                 "summary": "Update a Library",
                 "description": "Updates a library."
-            }
+            },
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true
+                }
+            ]
         },
         "/api/libraries/{id}/items": {
             "get": {
@@ -1099,6 +1106,7 @@
                     },
                     {
                         "name": "limit",
+                        "description": "Limit the number of items in each shelf. Default is 10.",
                         "schema": {
                             "type": "integer"
                         },
@@ -1106,6 +1114,7 @@
                     },
                     {
                         "name": "include",
+                        "description": "A comma separated list of what to include with the library items. The only current option is rssfeed.",
                         "schema": {
                             "type": "string"
                         },
@@ -1117,7 +1126,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/GetLibraryPersonalizedResponse"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Shelf"
+                                    }
                                 }
                             }
                         },
@@ -1141,7 +1153,7 @@
                 ],
                 "operationId": "getLibraryPersonalized",
                 "summary": "Get a Library's Personalized View",
-                "description": "Returns shelves of personalized recommendations."
+                "description": "Returns a library's personalized view for home page display."
             }
         },
         "/api/libraries/{id}/filterdata": {
@@ -1715,7 +1727,17 @@
                 "operationId": "deleteLibraryItem",
                 "summary": "Delete a Library Item",
                 "description": "Deletes a library item from the database. No files are deleted."
-            }
+            },
+            "parameters": [
+                {
+                    "name": "id",
+                    "schema": {
+                        "type": "string"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
         },
         "/api/items/{id}/media": {
             "patch": {
@@ -1847,6 +1869,16 @@
                     },
                     "required": true
                 },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -2305,11 +2337,10 @@
                     {
                         "name": "index",
                         "schema": {
-                            "default": 1,
                             "type": "integer"
                         },
                         "in": "path",
-                        "required": false
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -7131,7 +7162,7 @@
                     "results": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/SeriesExpanded"
+                            "$ref": "#/components/schemas/SeriesBooks"
                         }
                     },
                     "total": {
@@ -7248,7 +7279,7 @@
                     "series": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/SeriesExpanded"
+                            "$ref": "#/components/schemas/SeriesBooks"
                         }
                     }
                 }
@@ -7636,6 +7667,149 @@
                         "items": {
                             "type": "string"
                         }
+                    }
+                }
+            },
+            "Shelf": {
+                "description": "A shelf representing a category of items in the personalized view.",
+                "required": [
+                    "id",
+                    "label",
+                    "labelStringKey",
+                    "type",
+                    "entities",
+                    "category"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "The ID of the shelf.",
+                        "type": "string"
+                    },
+                    "label": {
+                        "description": "The label of the shelf.",
+                        "type": "string"
+                    },
+                    "labelStringKey": {
+                        "description": "The i18n key for the label.",
+                        "type": "string"
+                    },
+                    "type": {
+                        "description": "The type of items this shelf holds. Can be book, series, authors, episode, or podcast.",
+                        "type": "string"
+                    },
+                    "entities": {
+                        "description": "The entities displayed on the shelf.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ShelfEntity"
+                        }
+                    },
+                    "category": {
+                        "description": "The category of the shelf.",
+                        "type": "string"
+                    }
+                }
+            },
+            "ShelfEntity": {
+                "anyOf": [
+                    {
+                        "$ref": "#/components/schemas/LibraryItemMinified"
+                    },
+                    {
+                        "$ref": "#/components/schemas/Series"
+                    },
+                    {
+                        "$ref": "#/components/schemas/AuthorExpanded"
+                    }
+                ],
+                "description": "An entity displayed in a shelf.",
+                "type": "object"
+            },
+            "LibraryItemDurationStats": {
+                "description": "Stats about a library item based on its duration.",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "The ID of the library item.",
+                        "type": "string"
+                    },
+                    "title": {
+                        "description": "The title of the library item.",
+                        "type": "string"
+                    },
+                    "duration": {
+                        "format": "float",
+                        "description": "The duration of the library item in seconds.",
+                        "type": "number"
+                    }
+                }
+            },
+            "LibraryItemSizeStats": {
+                "description": "Stats about a library item based on its size.",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "The ID of the library item.",
+                        "type": "string"
+                    },
+                    "title": {
+                        "description": "The title of the library item.",
+                        "type": "string"
+                    },
+                    "size": {
+                        "description": "The size of the library item in bytes.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "AuthorStats": {
+                "description": "Stats about an author in the library.",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "The ID of the author.",
+                        "type": "string"
+                    },
+                    "name": {
+                        "description": "The name of the author.",
+                        "type": "string"
+                    },
+                    "count": {
+                        "description": "The number of books by the author in the library.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "GenreStats": {
+                "description": "Stats about a genre in the library.",
+                "type": "object",
+                "properties": {
+                    "genre": {
+                        "description": "The name of the genre.",
+                        "type": "string"
+                    },
+                    "count": {
+                        "description": "The number of items in the library with this genre.",
+                        "type": "integer"
+                    }
+                }
+            },
+            "LibraryItemSearchResult": {
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "libraryItem": {
+                        "$ref": "#/components/schemas/LibraryItem",
+                        "description": "The matched library item."
+                    },
+                    "matchKey": {
+                        "description": "What the library item was matched on.",
+                        "type": "string"
+                    },
+                    "matchText": {
+                        "description": "The text in the library item that the query matched to.",
+                        "type": "string"
                     }
                 }
             },
