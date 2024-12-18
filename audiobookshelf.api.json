@@ -436,6 +436,2052 @@
                 "summary": "Healthcheck",
                 "description": "Checks if the server is operating."
             }
+        },
+        "/api/libraries": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAllLibrariesResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getAllLibraries",
+                "summary": "Get All Libraries",
+                "description": "Retrieves all libraries accessible to the user."
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateLibraryRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LibraryResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "createLibrary",
+                "summary": "Create a Library",
+                "description": "Creates a library with the specified options."
+            }
+        },
+        "/api/libraries/{id}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "include",
+                        "description": "Options: filterdata",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLibraryResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibrary",
+                "summary": "Get a Library",
+                "description": "Retrieves a library by ID."
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LibraryResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "deleteLibrary",
+                "summary": "Delete a Library",
+                "description": "Deletes a library and its items."
+            },
+            "patch": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateLibraryRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LibraryResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "updateLibrary",
+                "summary": "Update a Library",
+                "description": "Updates a library."
+            }
+        },
+        "/api/libraries/{id}/items": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "sort",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "desc",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "filter",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "minified",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "collapseseries",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "include",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLibraryItemsResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibraryItems",
+                "summary": "Get a Library's Items",
+                "description": "Returns library items, optionally filtered or sorted."
+            }
+        },
+        "/api/libraries/{id}/issues": {
+            "delete": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "removeLibraryIssues",
+                "summary": "Remove a Library's Items With Issues",
+                "description": "Removes all items in a library that have issues."
+            }
+        },
+        "/api/libraries/{id}/episode-downloads": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetEpisodeDownloadsResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibraryEpisodeDownloads",
+                "summary": "Get a Library's Podcast Episode Downloads",
+                "description": "Retrieves the current and queued podcast episode downloads."
+            }
+        },
+        "/api/libraries/{id}/series": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "sort",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "desc",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "filter",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "include",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLibrarySeriesResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibrarySeries",
+                "summary": "Get a Library's Series",
+                "description": "Returns the series in a library."
+            }
+        },
+        "/api/libraries/{id}/collections": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "sort",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "desc",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "filter",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "minified",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "include",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLibraryCollectionsResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibraryCollections",
+                "summary": "Get a Library's Collections",
+                "description": "Returns the collections in a library."
+            }
+        },
+        "/api/libraries/{id}/playlists": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLibraryPlaylistsResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibraryPlaylists",
+                "summary": "Get a Library's User Playlists",
+                "description": "Returns the playlists for the authenticated user within this library."
+            }
+        },
+        "/api/libraries/{id}/personalized": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "include",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLibraryPersonalizedResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibraryPersonalized",
+                "summary": "Get a Library's Personalized View",
+                "description": "Returns shelves of personalized recommendations."
+            }
+        },
+        "/api/libraries/{id}/filterdata": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLibraryFilterDataResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibraryFilterData",
+                "summary": "Get a Library's Filter Data",
+                "description": "Returns filter data for use in building filter lists."
+            }
+        },
+        "/api/libraries/{id}/search": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "q",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "name": "limit",
+                        "description": "Default: 12",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SearchLibraryResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Bad Request (no query string)"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "searchLibrary",
+                "summary": "Search a Library",
+                "description": "Searches the library for the given query."
+            }
+        },
+        "/api/libraries/{id}/stats": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLibraryStatsResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibraryStats",
+                "summary": "Get a Library's Stats",
+                "description": "Returns statistics about the library."
+            }
+        },
+        "/api/libraries/{id}/authors": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLibraryAuthorsResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibraryAuthors",
+                "summary": "Get a Library's Authors",
+                "description": "Returns authors in the library."
+            }
+        },
+        "/api/libraries/{id}/matchall": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        },
+                        "description": "Success (no content)"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Forbidden (admin required)"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "matchAllLibraryItems",
+                "summary": "Match All of a Library's Items",
+                "description": "Performs a quick match of all items in the library."
+            }
+        },
+        "/api/libraries/{id}/scan": {
+            "post": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "force",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmptyResponse"
+                                }
+                            }
+                        },
+                        "description": "Success (no content)"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Forbidden (admin required)"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "scanLibraryFolders",
+                "summary": "Scan a Library's Folders",
+                "description": "Starts a scan of the library's folders."
+            }
+        },
+        "/api/libraries/{id}/recent-episodes": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetLibraryRecentEpisodesResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibraryRecentEpisodes",
+                "summary": "Get a Library's Recent Episodes",
+                "description": "Returns the newest unfinished podcast episodes in the library."
+            }
+        },
+        "/api/libraries/order": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ReorderLibrariesRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReorderLibrariesResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Forbidden (admin required)"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "reorderLibraries",
+                "summary": "Reorder Library List",
+                "description": "Changes the displayOrder of the specified libraries."
+            }
+        },
+        "/api/items/all": {
+            "delete": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Forbidden - admin required"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "deleteAllItems",
+                "summary": "Delete All Library Items",
+                "description": "Deletes all library items from the database. No files are deleted."
+            }
+        },
+        "/api/items/{id}": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "expanded",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "include",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "episode",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/LibraryItem"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/LibraryItemExpanded"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getLibraryItem",
+                "summary": "Get a Library Item",
+                "description": "Retrieves a library item by ID."
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "deleteLibraryItem",
+                "summary": "Delete a Library Item",
+                "description": "Deletes a library item from the database. No files are deleted."
+            }
+        },
+        "/api/items/{id}/media": {
+            "patch": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateItemMediaRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateItemMediaResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "updateItemMedia",
+                "summary": "Update a Library Item's Media",
+                "description": "Updates a library item's media and returns the updated library item."
+            }
+        },
+        "/api/items/{id}/cover": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "width",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "height",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "format",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "raw",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success (image data)"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getItemCover",
+                "summary": "Get a Library Item's Cover",
+                "description": "Retrieves a library item's cover image."
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UploadItemCoverRequest"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UploadItemCoverRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UploadItemCoverResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "uploadItemCover",
+                "summary": "Upload a Library Item Cover",
+                "description": "Uploads or downloads a cover image for a library item."
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "removeItemCover",
+                "summary": "Remove a Library Item's Cover",
+                "description": "Removes a library item's cover image."
+            },
+            "patch": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateItemCoverRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateItemCoverResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "updateItemCover",
+                "summary": "Update a Library Item's Cover",
+                "description": "Updates a library item's cover with an image already on the server."
+            }
+        },
+        "/api/items/{id}/match": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MatchItemRequest"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MatchItemResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "matchItem",
+                "summary": "Match a Library Item",
+                "description": "Matches the library item using quick match."
+            }
+        },
+        "/api/items/{id}/play": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlayItemRequest"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlaybackSessionExpanded"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "playItem",
+                "summary": "Play a Library Item",
+                "description": "Starts a playback session for a library item."
+            }
+        },
+        "/api/items/{id}/play/{episodeId}": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlayItemRequest"
+                            }
+                        }
+                    },
+                    "required": false
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "episodeId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlaybackSessionExpanded"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "playItemEpisode",
+                "summary": "Play a Podcast Episode",
+                "description": "Starts a playback session for a specific podcast episode."
+            }
+        },
+        "/api/items/{id}/tracks": {
+            "patch": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateItemTracksRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LibraryItem"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "updateItemTracks",
+                "summary": "Update a Library Item's Audio Tracks",
+                "description": "Updates the order/exclude status of a library item's audio files (books only)."
+            }
+        },
+        "/api/items/{id}/scan": {
+            "post": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ScanItemResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "scanItem",
+                "summary": "Scan a Library Item",
+                "description": "Scans a library item for changes."
+            }
+        },
+        "/api/items/{id}/tone-object": {
+            "get": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ToneObjectResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getItemToneObject",
+                "summary": "Get a Library Item's Tone Metadata Object",
+                "description": "Returns a tone metadata object for the library item."
+            }
+        },
+        "/api/items/{id}/chapters": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateItemChaptersRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateItemChaptersResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "updateItemChapters",
+                "summary": "Update a Library Item's Chapters",
+                "description": "Updates a library item's chapters (books only)."
+            }
+        },
+        "/api/items/{id}/tone-scan/{index}": {
+            "post": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "index",
+                        "schema": {
+                            "default": 1,
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ToneScanResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "toneScanItem",
+                "summary": "Tone Scan a Library Item",
+                "description": "Scans an audio file of a library item with tone."
+            }
+        },
+        "/api/items/batch/delete": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BatchDeleteItemsRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "batchDeleteItems",
+                "summary": "Batch Delete Library Items",
+                "description": "Batch deletes library items from the database. No files are deleted."
+            }
+        },
+        "/api/items/batch/update": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BatchUpdateItemsRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BatchUpdateItemsResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "batchUpdateItems",
+                "summary": "Batch Update Library Items",
+                "description": "Batch updates library items."
+            }
+        },
+        "/api/items/batch/get": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BatchGetItemsRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BatchGetItemsResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "batchGetItems",
+                "summary": "Batch Get Library Items",
+                "description": "Batch retrieves specified library items."
+            }
+        },
+        "/api/items/batch/quickmatch": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BatchQuickMatchItemsRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "batchQuickMatchItems",
+                "summary": "Batch Quick Match Library Items",
+                "description": "Batch matches library items using quick match."
+            }
         }
     },
     "components": {
@@ -4847,6 +6893,749 @@
                         "description": "A simple status indicator.",
                         "type": "string",
                         "example": "ok"
+                    }
+                }
+            },
+            "CreateLibraryRequest": {
+                "required": [
+                    "name",
+                    "folders"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "folders": {
+                        "type": "array",
+                        "items": {
+                            "required": [
+                                "fullPath"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "fullPath": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "icon": {
+                        "default": "database",
+                        "type": "string"
+                    },
+                    "mediaType": {
+                        "default": "book",
+                        "enum": [
+                            "book",
+                            "podcast"
+                        ],
+                        "type": "string"
+                    },
+                    "provider": {
+                        "default": "google",
+                        "type": "string"
+                    },
+                    "settings": {
+                        "type": "object",
+                        "properties": {
+                            "coverAspectRatio": {
+                                "default": 1,
+                                "type": "integer"
+                            },
+                            "disableWatcher": {
+                                "default": false,
+                                "type": "boolean"
+                            },
+                            "skipMatchingMediaWithAsin": {
+                                "default": false,
+                                "type": "boolean"
+                            },
+                            "skipMatchingMediaWithIsbn": {
+                                "default": false,
+                                "type": "boolean"
+                            },
+                            "autoScanCronExpression": {
+                                "nullable": true,
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "UpdateLibraryRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "folders": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "fullPath": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "displayOrder": {
+                        "type": "integer"
+                    },
+                    "icon": {
+                        "type": "string"
+                    },
+                    "provider": {
+                        "type": "string"
+                    },
+                    "settings": {
+                        "type": "object",
+                        "properties": {
+                            "coverAspectRatio": {
+                                "type": "integer"
+                            },
+                            "disableWatcher": {
+                                "type": "boolean"
+                            },
+                            "skipMatchingMediaWithAsin": {
+                                "type": "boolean"
+                            },
+                            "skipMatchingMediaWithIsbn": {
+                                "type": "boolean"
+                            },
+                            "autoScanCronExpression": {
+                                "nullable": true,
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "ReorderLibrariesRequest": {
+                "type": "array",
+                "items": {
+                    "required": [
+                        "id",
+                        "newOrder"
+                    ],
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "newOrder": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            },
+            "GetAllLibrariesResponse": {
+                "type": "object",
+                "properties": {
+                    "libraries": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Library"
+                        }
+                    }
+                }
+            },
+            "LibraryResponse": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Library"
+                    }
+                ]
+            },
+            "GetLibraryResponse": {
+                "type": "object",
+                "properties": {
+                    "filterdata": {
+                        "$ref": "#/components/schemas/LibraryFilterData"
+                    },
+                    "issues": {
+                        "type": "integer"
+                    },
+                    "numUserPlaylists": {
+                        "type": "integer"
+                    },
+                    "library": {
+                        "$ref": "#/components/schemas/Library"
+                    }
+                }
+            },
+            "GetLibraryItemsResponse": {
+                "type": "object",
+                "properties": {
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LibraryItemExpanded"
+                        }
+                    },
+                    "total": {
+                        "type": "integer"
+                    },
+                    "limit": {
+                        "type": "integer"
+                    },
+                    "page": {
+                        "type": "integer"
+                    },
+                    "sortBy": {
+                        "type": "string"
+                    },
+                    "sortDesc": {
+                        "type": "boolean"
+                    },
+                    "filterBy": {
+                        "type": "string"
+                    },
+                    "mediaType": {
+                        "type": "string"
+                    },
+                    "minified": {
+                        "type": "boolean"
+                    },
+                    "collapseseries": {
+                        "type": "boolean"
+                    },
+                    "include": {
+                        "type": "string"
+                    }
+                }
+            },
+            "EmptyResponse": {
+                "description": "Empty response.",
+                "type": "object"
+            },
+            "GetEpisodeDownloadsResponse": {
+                "type": "object",
+                "properties": {
+                    "currentDownload": {
+                        "$ref": "#/components/schemas/PodcastEpisodeDownload"
+                    },
+                    "queue": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PodcastEpisodeDownload"
+                        }
+                    }
+                }
+            },
+            "GetLibrarySeriesResponse": {
+                "type": "object",
+                "properties": {
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SeriesExpanded"
+                        }
+                    },
+                    "total": {
+                        "type": "integer"
+                    },
+                    "limit": {
+                        "type": "integer"
+                    },
+                    "page": {
+                        "type": "integer"
+                    },
+                    "sortBy": {
+                        "type": "string"
+                    },
+                    "sortDesc": {
+                        "type": "boolean"
+                    },
+                    "filterBy": {
+                        "type": "string"
+                    },
+                    "minified": {
+                        "type": "boolean"
+                    },
+                    "include": {
+                        "type": "string"
+                    }
+                }
+            },
+            "GetLibraryCollectionsResponse": {
+                "type": "object",
+                "properties": {
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CollectionExpanded"
+                        }
+                    },
+                    "total": {
+                        "type": "integer"
+                    },
+                    "limit": {
+                        "type": "integer"
+                    },
+                    "page": {
+                        "type": "integer"
+                    },
+                    "sortBy": {
+                        "type": "string"
+                    },
+                    "sortDesc": {
+                        "type": "boolean"
+                    },
+                    "filterBy": {
+                        "type": "string"
+                    },
+                    "minified": {
+                        "type": "boolean"
+                    },
+                    "include": {
+                        "type": "string"
+                    }
+                }
+            },
+            "GetLibraryPlaylistsResponse": {
+                "type": "object",
+                "properties": {
+                    "results": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PlaylistExpanded"
+                        }
+                    },
+                    "total": {
+                        "type": "integer"
+                    },
+                    "limit": {
+                        "type": "integer"
+                    },
+                    "page": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "GetLibraryPersonalizedResponse": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Shelf"
+                }
+            },
+            "GetLibraryFilterDataResponse": {
+                "$ref": "#/components/schemas/LibraryFilterData"
+            },
+            "SearchLibraryResponse": {
+                "type": "object",
+                "properties": {
+                    "book": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LibraryItemSearchResult"
+                        }
+                    },
+                    "tags": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "authors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AuthorExpanded"
+                        }
+                    },
+                    "series": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SeriesExpanded"
+                        }
+                    }
+                }
+            },
+            "GetLibraryStatsResponse": {
+                "type": "object",
+                "properties": {
+                    "totalItems": {
+                        "type": "integer"
+                    },
+                    "totalAuthors": {
+                        "type": "integer"
+                    },
+                    "totalGenres": {
+                        "type": "integer"
+                    },
+                    "totalDuration": {
+                        "type": "number"
+                    },
+                    "longestItems": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LibraryItemDurationStats"
+                        }
+                    },
+                    "numAudioTrack": {
+                        "type": "integer"
+                    },
+                    "totalSize": {
+                        "type": "integer"
+                    },
+                    "largestItems": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LibraryItemSizeStats"
+                        }
+                    },
+                    "authorsWithCount": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AuthorStats"
+                        }
+                    },
+                    "genresWithCount": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/GenreStats"
+                        }
+                    }
+                }
+            },
+            "GetLibraryAuthorsResponse": {
+                "type": "object",
+                "properties": {
+                    "authors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AuthorExpanded"
+                        }
+                    }
+                }
+            },
+            "GetLibraryRecentEpisodesResponse": {
+                "type": "object",
+                "properties": {
+                    "episodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PodcastEpisodeExpanded"
+                        }
+                    },
+                    "total": {
+                        "type": "integer"
+                    },
+                    "limit": {
+                        "type": "integer"
+                    },
+                    "page": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "ReorderLibrariesResponse": {
+                "type": "object",
+                "properties": {
+                    "libraries": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Library"
+                        }
+                    }
+                }
+            },
+            "UpdateItemMediaRequest": {
+                "type": "object"
+            },
+            "UpdateItemMediaResponse": {
+                "type": "object",
+                "properties": {
+                    "updated": {
+                        "type": "boolean"
+                    },
+                    "libraryItem": {
+                        "$ref": "#/components/schemas/LibraryItemExpanded"
+                    }
+                }
+            },
+            "UploadItemCoverRequest": {
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "cover": {
+                                "format": "binary",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "url": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ]
+            },
+            "UploadItemCoverResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "cover": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UpdateItemCoverRequest": {
+                "required": [
+                    "cover"
+                ],
+                "type": "object",
+                "properties": {
+                    "cover": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UpdateItemCoverResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "cover": {
+                        "type": "string"
+                    }
+                }
+            },
+            "MatchItemRequest": {
+                "type": "object",
+                "properties": {
+                    "provider": {
+                        "default": "google",
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "author": {
+                        "type": "string"
+                    },
+                    "overrideDefaults": {
+                        "default": false,
+                        "type": "boolean"
+                    },
+                    "isbn": {
+                        "type": "string"
+                    },
+                    "asin": {
+                        "type": "string"
+                    }
+                }
+            },
+            "MatchItemResponse": {
+                "type": "object",
+                "properties": {
+                    "updated": {
+                        "type": "boolean"
+                    },
+                    "libraryItem": {
+                        "$ref": "#/components/schemas/LibraryItemExpanded"
+                    }
+                }
+            },
+            "PlayItemRequest": {
+                "type": "object",
+                "properties": {
+                    "deviceInfo": {
+                        "type": "object"
+                    },
+                    "forceDirectPlay": {
+                        "default": false,
+                        "type": "boolean"
+                    },
+                    "forceTranscode": {
+                        "default": false,
+                        "type": "boolean"
+                    },
+                    "supportedMimeTypes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "mediaPlayer": {
+                        "default": "unknown",
+                        "type": "string"
+                    }
+                }
+            },
+            "UpdateItemTracksRequest": {
+                "required": [
+                    "orderedFileData"
+                ],
+                "type": "object",
+                "properties": {
+                    "orderedFileData": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "ino": {
+                                    "type": "string"
+                                },
+                                "exclude": {
+                                    "default": false,
+                                    "type": "boolean"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "ScanItemResponse": {
+                "type": "object",
+                "properties": {
+                    "result": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ToneObjectResponse": {
+                "type": "object"
+            },
+            "UpdateItemChaptersRequest": {
+                "required": [
+                    "chapters"
+                ],
+                "type": "object",
+                "properties": {
+                    "chapters": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "integer"
+                                },
+                                "start": {
+                                    "type": "number"
+                                },
+                                "end": {
+                                    "type": "number"
+                                },
+                                "title": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "UpdateItemChaptersResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "updated": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "ToneScanResponse": {
+                "type": "object"
+            },
+            "BatchDeleteItemsRequest": {
+                "required": [
+                    "libraryItemIds"
+                ],
+                "type": "object",
+                "properties": {
+                    "libraryItemIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "BatchUpdateItemsRequest": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "mediaPayload": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "BatchUpdateItemsResponse": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "updates": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "BatchGetItemsRequest": {
+                "required": [
+                    "libraryItemIds"
+                ],
+                "type": "object",
+                "properties": {
+                    "libraryItemIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "BatchGetItemsResponse": {
+                "type": "object",
+                "properties": {
+                    "libraryItems": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LibraryItemExpanded"
+                        }
+                    }
+                }
+            },
+            "BatchQuickMatchItemsRequest": {
+                "required": [
+                    "libraryItemIds"
+                ],
+                "type": "object",
+                "properties": {
+                    "options": {
+                        "type": "object",
+                        "properties": {
+                            "provider": {
+                                "default": "google",
+                                "type": "string"
+                            },
+                            "overrideDefaults": {
+                                "default": false,
+                                "type": "boolean"
+                            }
+                        }
+                    },
+                    "libraryItemIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 }
             },
