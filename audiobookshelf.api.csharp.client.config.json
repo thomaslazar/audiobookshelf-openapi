@@ -1,0 +1,7 @@
+{
+  "packageName": "Audiobookshelf.ClientLibrary",
+  "packageTitle": "Audiobookshelf Client Library",
+  "library": "restsharp",
+  "targetFramework": "net8.0",
+  "modelNameSuffix": "Model"
+}
