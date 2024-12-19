@@ -22,6 +22,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "Server"
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -61,6 +64,9 @@
                     },
                     "required": false
                 },
+                "tags": [
+                    "Server"
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -95,6 +101,9 @@
         },
         "/auth/openid": {
             "get": {
+                "tags": [
+                    "Server"
+                ],
                 "parameters": [
                     {
                         "name": "code_challenge",
@@ -196,6 +205,9 @@
         },
         "/auth/openid/callback": {
             "get": {
+                "tags": [
+                    "Server"
+                ],
                 "parameters": [
                     {
                         "name": "state",
@@ -284,6 +296,9 @@
         },
         "/auth/openid/mobile-redirect": {
             "get": {
+                "tags": [
+                    "Server"
+                ],
                 "parameters": [
                     {
                         "name": "code",
@@ -353,6 +368,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "Server"
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -382,6 +400,9 @@
         },
         "/status": {
             "get": {
+                "tags": [
+                    "Server"
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -401,6 +422,9 @@
         },
         "/ping": {
             "get": {
+                "tags": [
+                    "Server"
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -420,6 +444,9 @@
         },
         "/healthcheck": {
             "get": {
+                "tags": [
+                    "Server"
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -439,6 +466,9 @@
         },
         "/api/libraries": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -481,6 +511,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "Libraries"
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -515,6 +548,9 @@
         },
         "/api/libraries/{id}": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -566,6 +602,9 @@
                 "description": "Retrieves a library by ID."
             },
             "delete": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -618,6 +657,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -662,6 +704,9 @@
             "parameters": [
                 {
                     "name": "id",
+                    "schema": {
+                        "type": "string"
+                    },
                     "in": "path",
                     "required": true
                 }
@@ -669,6 +714,9 @@
         },
         "/api/libraries/{id}/items": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -769,6 +817,9 @@
         },
         "/api/libraries/{id}/issues": {
             "delete": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -813,6 +864,9 @@
         },
         "/api/libraries/{id}/episode-downloads": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -857,6 +911,9 @@
         },
         "/api/libraries/{id}/series": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -944,6 +1001,9 @@
         },
         "/api/libraries/{id}/collections": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1037,6 +1097,9 @@
         },
         "/api/libraries/{id}/playlists": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1095,6 +1158,9 @@
         },
         "/api/libraries/{id}/personalized": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1158,6 +1224,9 @@
         },
         "/api/libraries/{id}/filterdata": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1202,6 +1271,9 @@
         },
         "/api/libraries/{id}/search": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1272,6 +1344,9 @@
         },
         "/api/libraries/{id}/stats": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1316,6 +1391,9 @@
         },
         "/api/libraries/{id}/authors": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1360,6 +1438,9 @@
         },
         "/api/libraries/{id}/matchall": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1414,6 +1495,9 @@
         },
         "/api/libraries/{id}/scan": {
             "post": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1475,6 +1559,9 @@
         },
         "/api/libraries/{id}/recent-episodes": {
             "get": {
+                "tags": [
+                    "Libraries"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1543,6 +1630,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "Libraries"
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -1587,6 +1677,9 @@
         },
         "/api/items/all": {
             "delete": {
+                "tags": [
+                    "LibraryItems"
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -1624,6 +1717,9 @@
         },
         "/api/items/{id}": {
             "get": {
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1694,6 +1790,9 @@
                 "description": "Retrieves a library item by ID."
             },
             "delete": {
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1751,6 +1850,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1795,6 +1897,9 @@
         },
         "/api/items/{id}/cover": {
             "get": {
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1863,12 +1968,15 @@
                         },
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/UploadItemCoverRequest"
+                                "$ref": "#/components/schemas/UploadItemCoverRequestJson"
                             }
                         }
                     },
                     "required": true
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1910,6 +2018,9 @@
                 "description": "Uploads or downloads a cover image for a library item."
             },
             "delete": {
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1945,6 +2056,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -1995,6 +2109,9 @@
                     },
                     "required": false
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -2039,6 +2156,9 @@
                     },
                     "required": false
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -2093,6 +2213,9 @@
                     },
                     "required": false
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -2155,6 +2278,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -2192,6 +2318,9 @@
         },
         "/api/items/{id}/scan": {
             "post": {
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -2232,6 +2361,9 @@
         },
         "/api/items/{id}/tone-object": {
             "get": {
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -2282,6 +2414,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -2325,6 +2460,9 @@
         },
         "/api/items/{id}/tone-scan/{index}": {
             "post": {
+                "tags": [
+                    "LibraryItems"
+                ],
                 "parameters": [
                     {
                         "name": "id",
@@ -2380,6 +2518,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -2416,6 +2557,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -2456,6 +2600,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "responses": {
                     "200": {
                         "content": {
@@ -2493,6 +2640,9 @@
                     },
                     "required": true
                 },
+                "tags": [
+                    "LibraryItems"
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -2562,11 +2712,13 @@
                         "$ref": "#/components/schemas/LibrarySettings"
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library was created. (Read Only)",
                         "type": "integer",
                         "readOnly": true
                     },
                     "lastUpdate": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library was last updated. (Read Only)",
                         "type": "integer",
                         "readOnly": true
@@ -2710,6 +2862,7 @@
                         "readOnly": true
                     },
                     "addedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the folder was added. (Read Only)",
                         "type": "integer",
                         "readOnly": true
@@ -2755,28 +2908,34 @@
                         "type": "boolean"
                     },
                     "mtimeMs": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library item was last modified on disk.",
                         "type": "integer"
                     },
                     "ctimeMs": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library item status was changed on disk.",
                         "type": "integer"
                     },
                     "birthtimeMs": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library item was created on disk. Will be 0 if unknown.",
                         "type": "integer"
                     },
                     "addedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library item was added to the library.",
                         "type": "integer"
                     },
                     "updatedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library item was last updated. (Read Only)",
                         "type": "integer",
                         "readOnly": true
                     },
                     "lastScan": {
                         "nullable": true,
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library item was last scanned. Will be null if the server has not yet scanned the library item.",
                         "type": "integer"
                     },
@@ -3590,6 +3749,7 @@
                         "type": "string"
                     },
                     "lastEpisodeCheck": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the podcast was checked for new episodes.",
                         "type": "integer"
                     },
@@ -4021,14 +4181,17 @@
                         "description": "The audio file for the podcast episode."
                     },
                     "publishedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the podcast episode was published.",
                         "type": "integer"
                     },
                     "addedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the podcast episode was added to the library.",
                         "type": "integer"
                     },
                     "updatedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the podcast episode was last updated.",
                         "type": "integer"
                     }
@@ -4151,15 +4314,18 @@
                     },
                     "startedAt": {
                         "nullable": true,
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the episode started downloading.",
                         "type": "integer"
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the podcast episode download request was created.",
                         "type": "integer"
                     },
                     "finishedAt": {
                         "nullable": true,
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the episode finished downloading.",
                         "type": "integer"
                     },
@@ -4188,6 +4354,7 @@
                     },
                     "publishedAt": {
                         "nullable": true,
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the episode was published.",
                         "type": "integer"
                     }
@@ -4401,6 +4568,7 @@
                         "type": "string"
                     },
                     "publishedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the podcast episode was published.",
                         "type": "integer"
                     },
@@ -4442,10 +4610,12 @@
                         "description": "The audio file's metadata."
                     },
                     "addedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the audio file was added to the library.",
                         "type": "integer"
                     },
                     "updatedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the audio file last updated. (Read Only)",
                         "type": "integer"
                     },
@@ -4749,10 +4919,12 @@
                         "type": "string"
                     },
                     "addedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library file was added.",
                         "type": "integer"
                     },
                     "updatedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library file was last updated.",
                         "type": "integer"
                     }
@@ -4778,10 +4950,12 @@
                         "description": "The metadata for the library file."
                     },
                     "addedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library file was added.",
                         "type": "integer"
                     },
                     "updatedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the library file was last updated.",
                         "type": "integer"
                     },
@@ -4823,14 +4997,17 @@
                         "type": "integer"
                     },
                     "mtimeMs": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the file was last modified on disk.",
                         "type": "integer"
                     },
                     "ctimeMs": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the file status was changed on disk.",
                         "type": "integer"
                     },
                     "birthtimeMs": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the file was created on disk. Will be 0 if unknown.",
                         "type": "integer"
                     }
@@ -4874,10 +5051,12 @@
                         "type": "string"
                     },
                     "addedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the author was added.",
                         "type": "integer"
                     },
                     "updatedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the author was last updated.",
                         "type": "integer"
                     }
@@ -4947,10 +5126,12 @@
                         "type": "string"
                     },
                     "addedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the series was added.",
                         "type": "integer"
                     },
                     "updatedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the series was last updated.",
                         "type": "integer"
                     }
@@ -5032,6 +5213,7 @@
                         }
                     },
                     "addedAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the series was added.",
                         "type": "integer"
                     },
@@ -5110,10 +5292,12 @@
                         }
                     },
                     "lastUpdate": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the collection was last updated.",
                         "type": "integer"
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the collection was created.",
                         "type": "integer"
                     }
@@ -5163,10 +5347,12 @@
                         }
                     },
                     "lastUpdate": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the collection was last updated.",
                         "type": "integer"
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the collection was created.",
                         "type": "integer"
                     }
@@ -5221,10 +5407,12 @@
                         }
                     },
                     "lastUpdate": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the playlist was last updated.",
                         "type": "integer"
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the playlist was created.",
                         "type": "integer"
                     }
@@ -5279,10 +5467,12 @@
                         }
                     },
                     "lastUpdate": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the playlist was last updated.",
                         "type": "integer"
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the playlist was created.",
                         "type": "integer"
                     }
@@ -5419,12 +5609,53 @@
             "MediaProgressWithMedia": {
                 "description": "Media Progress with media included.",
                 "type": "object",
-                "allOf": [
-                    {
-                        "$ref": "#/components/schemas/MediaProgress"
-                    }
-                ],
                 "properties": {
+                    "id": {
+                        "description": "The ID of the media progress. For podcasts it's libraryItemId-episodeId.",
+                        "type": "string"
+                    },
+                    "libraryItemId": {
+                        "description": "The ID of the library item.",
+                        "type": "string"
+                    },
+                    "episodeId": {
+                        "nullable": true,
+                        "description": "The ID of the podcast episode. Null if for a book.",
+                        "type": "string"
+                    },
+                    "duration": {
+                        "description": "Total duration in seconds.",
+                        "type": "number"
+                    },
+                    "progress": {
+                        "description": "Percentage completion progress. 1 if finished.",
+                        "type": "number"
+                    },
+                    "currentTime": {
+                        "description": "Current time in seconds.",
+                        "type": "number"
+                    },
+                    "isFinished": {
+                        "description": "Whether the media is finished.",
+                        "type": "boolean"
+                    },
+                    "hideFromContinueListening": {
+                        "description": "Whether to hide from 'Continue Listening'.",
+                        "type": "boolean"
+                    },
+                    "lastUpdate": {
+                        "description": "When progress was last updated.",
+                        "type": "integer"
+                    },
+                    "startedAt": {
+                        "description": "When progress was created.",
+                        "type": "integer"
+                    },
+                    "finishedAt": {
+                        "nullable": true,
+                        "description": "When media was finished.",
+                        "type": "integer"
+                    },
                     "media": {
                         "oneOf": [
                             {
@@ -5939,6 +6170,7 @@
                         "type": "number"
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "The time (in ms since POSIX epoch) when the bookmark was created.",
                         "type": "integer"
                     }
@@ -7388,25 +7620,13 @@
                 }
             },
             "UploadItemCoverRequest": {
-                "oneOf": [
-                    {
-                        "type": "object",
-                        "properties": {
-                            "cover": {
-                                "format": "binary",
-                                "type": "string"
-                            }
-                        }
-                    },
-                    {
-                        "type": "object",
-                        "properties": {
-                            "url": {
-                                "type": "string"
-                            }
-                        }
+                "type": "object",
+                "properties": {
+                    "cover": {
+                        "format": "binary",
+                        "type": "string"
                     }
-                ]
+                }
             },
             "UploadItemCoverResponse": {
                 "type": "object",
@@ -7821,6 +8041,14 @@
                 "properties": {
                     "error": {
                         "description": "A description of the error.",
+                        "type": "string"
+                    }
+                }
+            },
+            "UploadItemCoverRequestJson": {
+                "type": "object",
+                "properties": {
+                    "url": {
                         "type": "string"
                     }
                 }
