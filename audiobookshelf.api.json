@@ -3034,22 +3034,27 @@
                         "type": "boolean"
                     },
                     "mtimeMs": {
+                        "format": "int64",
                         "description": "Last modified time (ms since epoch).",
                         "type": "integer"
                     },
                     "ctimeMs": {
+                        "format": "int64",
                         "description": "Change time (ms since epoch).",
                         "type": "integer"
                     },
                     "birthtimeMs": {
+                        "format": "int64",
                         "description": "Creation time (ms since epoch). Will be 0 if unknown.",
                         "type": "integer"
                     },
                     "addedAt": {
+                        "format": "int64",
                         "description": "Time the item was added to the library.",
                         "type": "integer"
                     },
                     "updatedAt": {
+                        "format": "int64",
                         "description": "Time when item was last updated.",
                         "type": "integer"
                     },
@@ -3139,27 +3144,33 @@
                         "type": "boolean"
                     },
                     "mtimeMs": {
+                        "format": "int64",
                         "description": "Last modified time.",
                         "type": "integer"
                     },
                     "ctimeMs": {
+                        "format": "int64",
                         "description": "Change time.",
                         "type": "integer"
                     },
                     "birthtimeMs": {
+                        "format": "int64",
                         "description": "Birth time.",
                         "type": "integer"
                     },
                     "addedAt": {
+                        "format": "int64",
                         "description": "Time added.",
                         "type": "integer"
                     },
                     "updatedAt": {
+                        "format": "int64",
                         "description": "Time updated.",
                         "type": "integer"
                     },
                     "lastScan": {
                         "nullable": true,
+                        "format": "int64",
                         "description": "Last scan time.",
                         "type": "integer"
                     },
@@ -3813,6 +3824,7 @@
                         "type": "string"
                     },
                     "lastEpisodeCheck": {
+                        "format": "int64",
                         "description": "Last episode check time.",
                         "type": "integer"
                     },
@@ -3879,6 +3891,7 @@
                         "type": "string"
                     },
                     "lastEpisodeCheck": {
+                        "format": "int64",
                         "type": "integer"
                     },
                     "maxEpisodesToKeep": {
@@ -5580,15 +5593,18 @@
                         "type": "boolean"
                     },
                     "lastUpdate": {
+                        "format": "int64",
                         "description": "When progress was last updated.",
                         "type": "integer"
                     },
                     "startedAt": {
+                        "format": "int64",
                         "description": "When progress was created.",
                         "type": "integer"
                     },
                     "finishedAt": {
                         "nullable": true,
+                        "format": "int64",
                         "description": "When media was finished.",
                         "type": "integer"
                     }
@@ -5644,15 +5660,18 @@
                         "type": "boolean"
                     },
                     "lastUpdate": {
+                        "format": "int64",
                         "description": "When progress was last updated.",
                         "type": "integer"
                     },
                     "startedAt": {
+                        "format": "int64",
                         "description": "When progress was created.",
                         "type": "integer"
                     },
                     "finishedAt": {
                         "nullable": true,
+                        "format": "int64",
                         "description": "When media was finished.",
                         "type": "integer"
                     },
@@ -5787,10 +5806,12 @@
                         "type": "number"
                     },
                     "startedAt": {
+                        "format": "int64",
                         "description": "When the playback session started.",
                         "type": "integer"
                     },
                     "updatedAt": {
+                        "format": "int64",
                         "description": "When last updated.",
                         "type": "integer"
                     }
@@ -6011,10 +6032,12 @@
                     },
                     "lastSeen": {
                         "nullable": true,
+                        "format": "int64",
                         "description": "When the user was last seen. Null if never.",
                         "type": "integer"
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "When the user was created.",
                         "type": "integer"
                     },
@@ -6103,10 +6126,12 @@
                     },
                     "lastSeen": {
                         "nullable": true,
+                        "format": "int64",
                         "description": "When the user was last seen.",
                         "type": "integer"
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "When the user was created.",
                         "type": "integer"
                     }
@@ -6219,6 +6244,7 @@
                         "type": "integer"
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "When the backup was created.",
                         "type": "integer"
                     },
@@ -6273,6 +6299,7 @@
                         "type": "integer"
                     },
                     "notificationDelay": {
+                        "format": "int64",
                         "description": "Time (ms) between notification pushes.",
                         "type": "integer"
                     }
@@ -6331,6 +6358,7 @@
                     },
                     "lastFiredAt": {
                         "nullable": true,
+                        "format": "int64",
                         "description": "When the notification was last fired.",
                         "type": "integer"
                     },
@@ -6347,6 +6375,7 @@
                         "type": "integer"
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "When the notification was created.",
                         "type": "integer"
                     }
@@ -6637,10 +6666,12 @@
                         }
                     },
                     "createdAt": {
+                        "format": "int64",
                         "description": "When the RSS feed was created.",
                         "type": "integer"
                     },
                     "updatedAt": {
+                        "format": "int64",
                         "description": "When the RSS feed was last updated.",
                         "type": "integer"
                     }
