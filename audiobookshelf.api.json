@@ -69,13 +69,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/LogoutResponse"
-                                }
-                            }
-                        },
                         "description": "Success"
                     },
                     "401": {
@@ -373,13 +366,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/InitServerResponse"
-                                }
-                            }
-                        },
                         "description": "Success"
                     },
                     "500": {
@@ -449,13 +435,6 @@
                 ],
                 "responses": {
                     "200": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HealthcheckResponse"
-                                }
-                            }
-                        },
                         "description": "Success"
                     }
                 },
@@ -2662,6 +2641,487 @@
                 "operationId": "batchQuickMatchItems",
                 "summary": "Batch Quick Match Library Items",
                 "description": "Batch matches library items using quick match."
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAllUsersResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getAllUsers",
+                "summary": "Get All Users",
+                "description": "Retrieves all users."
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateUserRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Forbidden"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "createUser",
+                "summary": "Create a User",
+                "description": "Creates a new user."
+            }
+        },
+        "/api/users/online": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetOnlineUsersResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getOnlineUsers",
+                "summary": "Get Online Users",
+                "description": "Retrieves all online users and open sessions."
+            }
+        },
+        "/api/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserWithSession"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getUser",
+                "summary": "Get a User",
+                "description": "Retrieves a user by ID."
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DeleteUserResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "deleteUser",
+                "summary": "Delete a User",
+                "description": "Deletes a user by ID."
+            },
+            "patch": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateUserRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateUserResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "updateUser",
+                "summary": "Update a User",
+                "description": "Updates a user's details."
+            }
+        },
+        "/api/users/{id}/listening-sessions": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "itemsPerPage",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    },
+                    {
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetUserListeningSessionsResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getUserListeningSessions",
+                "summary": "Get a User's Listening Sessions",
+                "description": "Retrieves the listening sessions of a user."
+            }
+        },
+        "/api/users/{id}/listening-stats": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetUserListeningStatsResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "getUserListeningStats",
+                "summary": "Get a User's Listening Stats",
+                "description": "Retrieves a user's listening statistics."
+            }
+        },
+        "/api/users/{id}/purge-media-progress": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserWithProgressDetails"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorMessage"
+                                }
+                            }
+                        },
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "operationId": "purgeUserMediaProgress",
+                "summary": "Purge a User's Media Progress",
+                "description": "Removes the user's media progress for items that no longer exist."
             }
         }
     },
@@ -7097,17 +7557,6 @@
                     }
                 }
             },
-            "LogoutResponse": {
-                "type": "object",
-                "properties": {
-                    "status": {
-                        "description": "Confirmation of logout success.",
-                        "type": "string",
-                        "example": "ok"
-                    }
-                },
-                "additionalProperties": false
-            },
             "RedirectResponse": {
                 "description": "Response for redirects (302). No content returned.",
                 "type": "object",
@@ -7140,15 +7589,6 @@
                     }
                 }
             },
-            "InitServerResponse": {
-                "type": "object",
-                "properties": {
-                    "success": {
-                        "type": "boolean",
-                        "example": true
-                    }
-                }
-            },
             "StatusResponse": {
                 "type": "object",
                 "properties": {
@@ -7177,16 +7617,6 @@
                         "description": "Will always be true.",
                         "type": "boolean",
                         "example": true
-                    }
-                }
-            },
-            "HealthcheckResponse": {
-                "type": "object",
-                "properties": {
-                    "status": {
-                        "description": "A simple status indicator.",
-                        "type": "string",
-                        "example": "ok"
                     }
                 }
             },
@@ -8061,6 +8491,280 @@
                     "matchText": {
                         "description": "The text in the library item that the query matched to.",
                         "type": "string"
+                    }
+                }
+            },
+            "CreateUserRequest": {
+                "required": [
+                    "username",
+                    "password",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "enum": [
+                            "guest",
+                            "user",
+                            "admin"
+                        ],
+                        "type": "string"
+                    },
+                    "mediaProgress": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MediaProgress"
+                        }
+                    },
+                    "bookmarks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AudioBookmark"
+                        }
+                    },
+                    "seriesHideFromContinueListening": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "isActive": {
+                        "default": true,
+                        "type": "boolean"
+                    },
+                    "isLocked": {
+                        "default": false,
+                        "type": "boolean"
+                    },
+                    "lastSeen": {
+                        "nullable": true,
+                        "format": "int64",
+                        "type": "integer"
+                    },
+                    "createdAt": {
+                        "format": "int64",
+                        "type": "integer"
+                    },
+                    "permissions": {
+                        "$ref": "#/components/schemas/UserPermissions"
+                    },
+                    "librariesAccessible": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "itemTagsAccessible": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "UpdateUserRequest": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "enum": [
+                            "guest",
+                            "user",
+                            "admin"
+                        ],
+                        "type": "string"
+                    },
+                    "seriesHideFromContinueListening": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "isActive": {
+                        "type": "boolean"
+                    },
+                    "permissions": {
+                        "$ref": "#/components/schemas/UserPermissions"
+                    },
+                    "librariesAccessible": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "itemTagsAccessible": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "CreateUserResponse": {
+                "required": [
+                    "user"
+                ],
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                }
+            },
+            "GetAllUsersResponse": {
+                "required": [
+                    "users"
+                ],
+                "type": "object",
+                "properties": {
+                    "users": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserWithProgressDetails"
+                        }
+                    }
+                }
+            },
+            "GetOnlineUsersResponse": {
+                "required": [
+                    "usersOnline",
+                    "openSessions"
+                ],
+                "type": "object",
+                "properties": {
+                    "usersOnline": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/UserWithSession"
+                        }
+                    },
+                    "openSessions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PlaybackSession"
+                        }
+                    }
+                }
+            },
+            "UpdateUserResponse": {
+                "required": [
+                    "success",
+                    "user"
+                ],
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                }
+            },
+            "DeleteUserResponse": {
+                "required": [
+                    "success"
+                ],
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "GetUserListeningSessionsResponse": {
+                "required": [
+                    "total",
+                    "numPages",
+                    "page",
+                    "itemsPerPage",
+                    "sessions"
+                ],
+                "type": "object",
+                "properties": {
+                    "total": {
+                        "type": "integer"
+                    },
+                    "numPages": {
+                        "type": "integer"
+                    },
+                    "page": {
+                        "type": "integer"
+                    },
+                    "itemsPerPage": {
+                        "type": "integer"
+                    },
+                    "sessions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PlaybackSession"
+                        }
+                    }
+                }
+            },
+            "GetUserListeningStatsResponse": {
+                "required": [
+                    "totalTime",
+                    "items",
+                    "days",
+                    "dayOfWeek",
+                    "today",
+                    "recentSessions"
+                ],
+                "type": "object",
+                "properties": {
+                    "totalTime": {
+                        "format": "int64",
+                        "type": "integer"
+                    },
+                    "items": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "timeListening": {
+                                    "type": "integer"
+                                },
+                                "mediaMetadata": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "days": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "integer"
+                        }
+                    },
+                    "dayOfWeek": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "integer"
+                        }
+                    },
+                    "today": {
+                        "type": "integer"
+                    },
+                    "recentSessions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PlaybackSession"
+                        }
                     }
                 }
             },
