@@ -2698,7 +2698,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/User"
+                                    "$ref": "#/components/schemas/CreateUserResponse"
                                 }
                             }
                         },
@@ -8765,6 +8765,17 @@
                         "items": {
                             "$ref": "#/components/schemas/PlaybackSession"
                         }
+                    }
+                }
+            },
+            "GetUserResponse": {
+                "required": [
+                    "user"
+                ],
+                "type": "object",
+                "properties": {
+                    "user": {
+                        "$ref": "#/components/schemas/User"
                     }
                 }
             },
