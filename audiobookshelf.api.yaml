@@ -1803,6 +1803,9 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/GetAllCollectionsResponse'
                     description: Success
+            security:
+                -
+                    bearerAuth: []
             operationId: getAllCollections
             summary: Get All Collections
             description: Retrieves all collections.
@@ -1826,6 +1829,9 @@ paths:
                     description: A user with update permissions is required to create collections.
                 '500':
                     description: libraryId and name are required parameters.
+            security:
+                -
+                    bearerAuth: []
             operationId: createCollection
             summary: Create a Collection
             description: Creates a collection and returns it.
@@ -1857,6 +1863,9 @@ paths:
                     description: Success
                 '404':
                     description: No collection with the specified ID exists.
+            security:
+                -
+                    bearerAuth: []
             operationId: getCollection
             summary: Get a Collection
             description: Retrieves a collection.
@@ -1877,6 +1886,9 @@ paths:
                     description: A user with delete permissions is required to delete a collection.
                 '404':
                     description: No collection with the specified ID exists.
+            security:
+                -
+                    bearerAuth: []
             operationId: deleteCollection
             summary: Delete a Collection
             description: Deletes a collection from the database.
@@ -1907,6 +1919,9 @@ paths:
                     description: A user with update permissions is required to update collections.
                 '404':
                     description: No collection with the specified ID exists.
+            security:
+                -
+                    bearerAuth: []
             operationId: updateCollection
             summary: Update a Collection
             description: Updates a collection and returns it.
@@ -1942,6 +1957,9 @@ paths:
                     description: >-
                         The provided library item ID could not be found, is in a different library, or is
                         already in the collection.
+            security:
+                -
+                    bearerAuth: []
             operationId: addBookToCollection
             summary: Add a Book to a Collection
             description: Adds a book to a collection and returns the collection.
@@ -1973,6 +1991,9 @@ paths:
                     description: A user with delete permissions is required to remove a book from a collection.
                 '404':
                     description: No collection with the specified ID exists.
+            security:
+                -
+                    bearerAuth: []
             operationId: removeBookFromCollection
             summary: Remove a Book from a Collection
             description: Removes a book from a collection and returns the collection.
@@ -2006,6 +2027,9 @@ paths:
                     description: No collection with the specified ID exists.
                 '500':
                     description: The provided books array must not be empty.
+            security:
+                -
+                    bearerAuth: []
             operationId: batchAddBooksToCollection
             summary: Batch Add Books to a Collection
             description: Batch adds books to a collection and returns the collection.
@@ -2039,6 +2063,9 @@ paths:
                     description: No collection with the specified ID exists.
                 '500':
                     description: The provided books array must not be empty.
+            security:
+                -
+                    bearerAuth: []
             operationId: batchRemoveBooksFromCollection
             summary: Batch Remove Books from a Collection
             description: Batch removes books from a collection and returns the collection.
@@ -2053,6 +2080,9 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/GetAllPlaylistsResponse'
                     description: Success
+            security:
+                -
+                    bearerAuth: []
             operationId: getAllUserPlaylists
             summary: Get All User Playlists
         post:
@@ -2073,6 +2103,9 @@ paths:
                     description: Success
                 '400':
                     description: The provided playlist data was invalid.
+            security:
+                -
+                    bearerAuth: []
             operationId: createPlaylist
             summary: Create a Playlist
     /api/playlists/{id}:
@@ -2098,6 +2131,9 @@ paths:
                     description: The playlist does not belong to the authenticated user.
                 '404':
                     description: No playlist with the provided ID exists.
+            security:
+                -
+                    bearerAuth: []
             operationId: getPlaylist
             summary: Get a Playlist
         delete:
@@ -2118,6 +2154,9 @@ paths:
                     description: The playlist does not belong to the authenticated user.
                 '404':
                     description: No playlist with the provided ID exists.
+            security:
+                -
+                    bearerAuth: []
             operationId: deletePlaylist
             summary: Delete a Playlist
         patch:
@@ -2148,6 +2187,9 @@ paths:
                     description: The playlist does not belong to the authenticated user.
                 '404':
                     description: No playlist with the provided ID exists.
+            security:
+                -
+                    bearerAuth: []
             operationId: updatePlaylist
             summary: Update a Playlist
     /api/playlists/{id}/item:
@@ -2186,6 +2228,9 @@ paths:
                     description: The playlist does not belong to the authenticated user.
                 '404':
                     description: No playlist with the provided ID exists.
+            security:
+                -
+                    bearerAuth: []
             operationId: addItemToPlaylist
             summary: Add an Item to a Playlist
     /api/playlists/{id}/item/{libraryItemId}:
@@ -2220,6 +2265,9 @@ paths:
                     description: >-
                         No playlist with the provided ID exists, or the playlist does not contain the provided
                         item.
+            security:
+                -
+                    bearerAuth: []
             operationId: removeItemFromPlaylist
             summary: Remove an Item From a Playlist
     /api/playlists/{id}/batch/add:
@@ -2255,6 +2303,9 @@ paths:
                     description: No playlist with the provided ID exists.
                 '500':
                     description: The provided items array was empty or did not exist.
+            security:
+                -
+                    bearerAuth: []
             operationId: batchAddItemsToPlaylist
             summary: Batch Add Items to a Playlist
     /api/playlists/{id}/batch/remove:
@@ -2290,6 +2341,9 @@ paths:
                     description: No playlist with the provided ID exists.
                 '500':
                     description: The provided items array was empty or did not exist.
+            security:
+                -
+                    bearerAuth: []
             operationId: batchRemoveItemsFromPlaylist
             summary: Batch Remove Items From a Playlist
     /api/me:
@@ -2303,6 +2357,9 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/User'
                     description: Success
+            security:
+                -
+                    bearerAuth: []
             operationId: getYourUser
             summary: Get Your User
             description: Retrieves the authenticated user's details.
@@ -2332,6 +2389,9 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/GetListeningSessionsResponse'
                     description: Success
+            security:
+                -
+                    bearerAuth: []
             operationId: getYourListeningSessions
             summary: Get Your Listening Sessions
             description: Retrieves the listening sessions for the authenticated user.
@@ -2346,6 +2406,9 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/GetListeningStatsResponse'
                     description: Success
+            security:
+                -
+                    bearerAuth: []
             operationId: getYourListeningStats
             summary: Get Your Listening Stats
             description: Retrieves listening statistics for the authenticated user.
@@ -2368,6 +2431,9 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/User'
                     description: Success
+            security:
+                -
+                    bearerAuth: []
             operationId: removeItemFromContinueListening
             summary: Remove an Item From Continue Listening
             description: Removes a library item from the user's "Continue Listening" shelf.
@@ -2392,6 +2458,9 @@ paths:
                     description: Success
                 '404':
                     description: No media progress was found that matches the given ID.
+            security:
+                -
+                    bearerAuth: []
             operationId: getMediaProgress
             summary: Get a Media Progress
             description: Retrieves your media progress that is associated with the given library item ID.
@@ -2409,6 +2478,9 @@ paths:
             responses:
                 '200':
                     description: Success
+            security:
+                -
+                    bearerAuth: []
             operationId: removeMediaProgress
             summary: Remove a Media Progress
             description: Removes a media progress entry from the user's data.
@@ -2434,6 +2506,9 @@ paths:
                     description: Success
                 '404':
                     description: No library items or podcast episodes were found with the given ID.
+            security:
+                -
+                    bearerAuth: []
             operationId: updateMediaProgress
             summary: Create/Update Media Progress
             description: Creates or updates media progress for a library item.
@@ -2465,6 +2540,9 @@ paths:
                     description: Success
                 '404':
                     description: No media progress was found that matches the given IDs.
+            security:
+                -
+                    bearerAuth: []
             operationId: getMediaProgressForEpisode
             summary: Get a Media Progress for Episode
             description: Retrieves your media progress for the specified library item and podcast episode.
@@ -2497,6 +2575,9 @@ paths:
                     description: Success
                 '404':
                     description: No library items or podcast episodes were found with the given IDs.
+            security:
+                -
+                    bearerAuth: []
             operationId: updateMediaProgressForEpisode
             summary: Create/Update Media Progress for Episode
             description: Creates or updates media progress for a library item and podcast episode.
@@ -2519,6 +2600,9 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/GetItemsInProgressResponse'
                     description: Success
+            security:
+                -
+                    bearerAuth: []
             operationId: getLibraryItemsInProgress
             summary: Get Library Items In Progress
             description: Retrieves library items that are in progress for the authenticated user.
@@ -2537,6 +2621,9 @@ paths:
                     description: Success
                 '400':
                     description: The provided array must have a non-zero length.
+            security:
+                -
+                    bearerAuth: []
             operationId: batchUpdateMediaProgress
             summary: Batch Create/Update Media Progress
             description: Batch creates or updates media progress for the authenticated user.
@@ -2567,6 +2654,9 @@ paths:
                     description: Success
                 '404':
                     description: No library item with the provided ID exists.
+            security:
+                -
+                    bearerAuth: []
             operationId: createBookmark
             summary: Create a Bookmark
             description: Creates a bookmark for a library item.
@@ -2598,6 +2688,9 @@ paths:
                     description: No library item with the provided ID exists or no bookmark at the given time exists.
                 '500':
                     description: Could not find the bookmark.
+            security:
+                -
+                    bearerAuth: []
             operationId: updateBookmark
             summary: Update a Bookmark
             description: Updates a bookmark for a library item.
@@ -2627,6 +2720,9 @@ paths:
                     description: No library item with the provided ID exists or no bookmark at the given Time exists.
                 '500':
                     description: The Time URL parameter must be a number.
+            security:
+                -
+                    bearerAuth: []
             operationId: removeBookmark
             summary: Remove a Bookmark
             description: Removes a bookmark from a library item.
@@ -2649,6 +2745,9 @@ paths:
                     description: Success
                 '500':
                     description: Guest users cannot change their password.
+            security:
+                -
+                    bearerAuth: []
             operationId: changePassword
             summary: Change Your Password
             description: Changes the password for the authenticated user.
@@ -2671,6 +2770,9 @@ paths:
                     description: Success
                 '500':
                     description: The localMediaProgress parameter is required.
+            security:
+                -
+                    bearerAuth: []
             operationId: syncLocalProgress
             summary: Sync Local Media Progress
             description: >-
@@ -2699,6 +2801,9 @@ paths:
                     description: Success
                 '404':
                     description: No series matching the provided ID was found.
+            security:
+                -
+                    bearerAuth: []
             operationId: removeSeriesFromContinueListening
             summary: Remove a Series From Continue Listening
             description: Removes a series from your "Continue Series" shelf. Your user is returned.
