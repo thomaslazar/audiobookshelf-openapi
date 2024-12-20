@@ -2042,6 +2042,256 @@ paths:
             operationId: batchRemoveBooksFromCollection
             summary: Batch Remove Books from a Collection
             description: Batch removes books from a collection and returns the collection.
+    /api/playlists:
+        get:
+            tags:
+                - Playlists
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetAllPlaylistsResponse'
+                    description: Success
+            operationId: getAllUserPlaylists
+            summary: Get All User Playlists
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreatePlaylistRequest'
+                required: true
+            tags:
+                - Playlists
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PlaylistExpanded'
+                    description: Success
+                '400':
+                    description: The provided playlist data was invalid.
+            operationId: createPlaylist
+            summary: Create a Playlist
+    /api/playlists/{id}:
+        get:
+            tags:
+                - Playlists
+            parameters:
+                -
+                    name: id
+                    description: The ID of the playlist.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PlaylistExpanded'
+                    description: Success
+                '403':
+                    description: The playlist does not belong to the authenticated user.
+                '404':
+                    description: No playlist with the provided ID exists.
+            operationId: getPlaylist
+            summary: Get a Playlist
+        delete:
+            tags:
+                - Playlists
+            parameters:
+                -
+                    name: id
+                    description: The ID of the playlist.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    description: Success
+                '403':
+                    description: The playlist does not belong to the authenticated user.
+                '404':
+                    description: No playlist with the provided ID exists.
+            operationId: deletePlaylist
+            summary: Delete a Playlist
+        patch:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdatePlaylistRequest'
+                required: true
+            tags:
+                - Playlists
+            parameters:
+                -
+                    name: id
+                    description: The ID of the playlist.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PlaylistExpanded'
+                    description: Success
+                '403':
+                    description: The playlist does not belong to the authenticated user.
+                '404':
+                    description: No playlist with the provided ID exists.
+            operationId: updatePlaylist
+            summary: Update a Playlist
+    /api/playlists/{id}/item:
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/AddPlaylistItemRequest'
+                required: true
+            tags:
+                - Playlists
+            parameters:
+                -
+                    name: id
+                    description: The ID of the playlist.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PlaylistExpanded'
+                    description: Success
+                '400':
+                    description: >-
+                        No library item with the provided ID exists, the library item is in a different
+                        library from the playlist, the library item is already in the playlist, the library
+                        item is not a podcast and an episodeId was provided, the library item is a podcast and
+                        an episodeId was not provided, or no podcast episode with the provided ID exists in
+                        the library item.
+                '403':
+                    description: The playlist does not belong to the authenticated user.
+                '404':
+                    description: No playlist with the provided ID exists.
+            operationId: addItemToPlaylist
+            summary: Add an Item to a Playlist
+    /api/playlists/{id}/item/{libraryItemId}:
+        delete:
+            tags:
+                - Playlists
+            parameters:
+                -
+                    name: id
+                    description: The ID of the playlist.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+                -
+                    name: libraryItemId
+                    description: The ID of the library item the playlist item to remove is for.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PlaylistExpanded'
+                    description: Success
+                '403':
+                    description: The playlist does not belong to the authenticated user.
+                '404':
+                    description: >-
+                        No playlist with the provided ID exists, or the playlist does not contain the provided
+                        item.
+            operationId: removeItemFromPlaylist
+            summary: Remove an Item From a Playlist
+    /api/playlists/{id}/batch/add:
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/BatchAddItemsRequest'
+                required: true
+            tags:
+                - Playlists
+            parameters:
+                -
+                    name: id
+                    description: The ID of the playlist.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PlaylistExpanded'
+                    description: Success
+                '400':
+                    description: One or more of the provided items does not have a libraryItemId.
+                '403':
+                    description: The playlist does not belong to the authenticated user.
+                '404':
+                    description: No playlist with the provided ID exists.
+                '500':
+                    description: The provided items array was empty or did not exist.
+            operationId: batchAddItemsToPlaylist
+            summary: Batch Add Items to a Playlist
+    /api/playlists/{id}/batch/remove:
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/BatchRemoveItemsRequest'
+                required: true
+            tags:
+                - Playlists
+            parameters:
+                -
+                    name: id
+                    description: The ID of the playlist.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/PlaylistExpanded'
+                    description: Success
+                '400':
+                    description: One or more of the provided items does not have a libraryItemId.
+                '403':
+                    description: The playlist does not belong to the authenticated user.
+                '404':
+                    description: No playlist with the provided ID exists.
+                '500':
+                    description: The provided items array was empty or did not exist.
+            operationId: batchRemoveItemsFromPlaylist
+            summary: Batch Remove Items From a Playlist
 components:
     schemas:
         Library:
@@ -6360,6 +6610,80 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/CollectionExpanded'
+        CreatePlaylistRequest:
+            type: object
+            properties:
+                libraryId:
+                    description: The ID of the library the playlist belongs to.
+                    type: string
+                name:
+                    description: The playlist's name.
+                    type: string
+                description:
+                    nullable: true
+                    description: The playlist's description.
+                    type: string
+                coverPath:
+                    nullable: true
+                    description: The path of the playlist's cover.
+                    type: string
+                items:
+                    description: The items in the playlist.
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/PlaylistItem'
+        GetAllPlaylistsResponse:
+            type: object
+            properties:
+                playlists:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/PlaylistExpanded'
+        UpdatePlaylistRequest:
+            type: object
+            properties:
+                name:
+                    description: The playlist's name.
+                    type: string
+                description:
+                    nullable: true
+                    description: The playlist's description.
+                    type: string
+                coverPath:
+                    nullable: true
+                    description: The path of the playlist's cover.
+                    type: string
+                items:
+                    description: The items in the playlist.
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/PlaylistItem'
+        AddPlaylistItemRequest:
+            type: object
+            properties:
+                libraryItemId:
+                    description: The ID of the library item the playlist item is for.
+                    type: string
+                episodeId:
+                    nullable: true
+                    description: The ID of the podcast episode the playlist item is for.
+                    type: string
+        BatchAddItemsRequest:
+            type: object
+            properties:
+                items:
+                    description: The items to add to the playlist.
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/PlaylistItem'
+        BatchRemoveItemsRequest:
+            type: object
+            properties:
+                items:
+                    description: The items to remove from the playlist.
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/PlaylistItem'
     securitySchemes:
         bearerAuth:
             scheme: bearer
