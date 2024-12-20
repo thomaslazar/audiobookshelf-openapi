@@ -2534,10 +2534,6 @@ paths:
                 - Me
             responses:
                 '200':
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/BatchUpdateMediaProgressResponse'
                     description: Success
                 '400':
                     description: The provided array must have a non-zero length.
@@ -3128,12 +3124,16 @@ components:
                     type: integer
                 progressLastUpdate:
                     format: int64
-                    description: The time (in ms since POSIX epoch) when the corresponding media progress was last updated.
+                    description: >-
+                        The time (in ms since POSIX epoch) when the corresponding media progress was last
+                        updated.
                     type: integer
                 recentEpisode:
                     nullable: true
                     $ref: '#/components/schemas/PodcastEpisode'
-                    description: If the library item is for a podcast, the media progress's corresponding podcast episode. Will not exist for book library items.
+                    description: >-
+                        If the library item is for a podcast, the media progress's corresponding podcast
+                        episode. Will not exist for book library items.
             example:
                 id: li_8gch9ve09orgn4fdz8
                 ino: '649641337522215266'
@@ -3152,7 +3152,7 @@ components:
                 mediaType: book
                 media: {}
                 numFiles: 2
-                size: 268990279        
+                size: 268990279
         LibraryItemExpanded:
             description: An expanded form of a library item.
             type: object
