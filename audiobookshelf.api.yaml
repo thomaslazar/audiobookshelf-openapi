@@ -2292,6 +2292,420 @@ paths:
                     description: The provided items array was empty or did not exist.
             operationId: batchRemoveItemsFromPlaylist
             summary: Batch Remove Items From a Playlist
+    /api/me:
+        get:
+            tags:
+                - Me
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+                    description: Success
+            operationId: getYourUser
+            summary: Get Your User
+            description: Retrieves the authenticated user's details.
+    /api/me/listening-sessions:
+        get:
+            tags:
+                - Me
+            parameters:
+                -
+                    name: itemsPerPage
+                    description: The number of listening sessions to retrieve per page.
+                    schema:
+                        default: 10
+                        type: integer
+                    in: query
+                -
+                    name: page
+                    description: The page (0-indexed) to retrieve.
+                    schema:
+                        default: 0
+                        type: integer
+                    in: query
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetListeningSessionsResponse'
+                    description: Success
+            operationId: getYourListeningSessions
+            summary: Get Your Listening Sessions
+            description: Retrieves the listening sessions for the authenticated user.
+    /api/me/listening-stats:
+        get:
+            tags:
+                - Me
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetListeningStatsResponse'
+                    description: Success
+            operationId: getYourListeningStats
+            summary: Get Your Listening Stats
+            description: Retrieves listening statistics for the authenticated user.
+    /api/me/progress/{id}/remove-from-continue-listening:
+        get:
+            tags:
+                - Me
+            parameters:
+                -
+                    name: id
+                    description: The ID of the media progress to remove.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+                    description: Success
+            operationId: removeItemFromContinueListening
+            summary: Remove an Item From Continue Listening
+            description: Removes a library item from the user's "Continue Listening" shelf.
+    /api/me/progress/{id}:
+        get:
+            tags:
+                - Me
+            parameters:
+                -
+                    name: id
+                    description: The ID of the library item to retrieve the media progress for.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/MediaProgress'
+                    description: Success
+                '404':
+                    description: No media progress was found that matches the given ID.
+            operationId: getMediaProgress
+            summary: Get a Media Progress
+            description: Retrieves your media progress that is associated with the given library item ID.
+        delete:
+            tags:
+                - Me
+            parameters:
+                -
+                    name: id
+                    description: The ID of the media progress to remove.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    description: Success
+            operationId: removeMediaProgress
+            summary: Remove a Media Progress
+            description: Removes a media progress entry from the user's data.
+        patch:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdateMediaProgressRequest'
+                required: true
+            tags:
+                - Me
+            parameters:
+                -
+                    name: id
+                    description: The ID of the library item to create/update media progress for.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    description: Success
+                '404':
+                    description: No library items or podcast episodes were found with the given ID.
+            operationId: updateMediaProgress
+            summary: Create/Update Media Progress
+            description: Creates or updates media progress for a library item.
+    /api/me/progress/{id}/{EpisodeID}:
+        get:
+            tags:
+                - Me
+            parameters:
+                -
+                    name: id
+                    description: The ID of the library item to retrieve the media progress for.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+                -
+                    name: EpisodeID
+                    description: The ID of the podcast episode to retrieve the media progress for.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/MediaProgress'
+                    description: Success
+                '404':
+                    description: No media progress was found that matches the given IDs.
+            operationId: getMediaProgressForEpisode
+            summary: Get a Media Progress for Episode
+            description: Retrieves your media progress for the specified library item and podcast episode.
+        patch:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdateMediaProgressRequest'
+                required: true
+            tags:
+                - Me
+            parameters:
+                -
+                    name: id
+                    description: The ID of the library item to create/update media progress for.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+                -
+                    name: EpisodeID
+                    description: The ID of the podcast episode to create/update media progress for.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    description: Success
+                '404':
+                    description: No library items or podcast episodes were found with the given IDs.
+            operationId: updateMediaProgressForEpisode
+            summary: Create/Update Media Progress for Episode
+            description: Creates or updates media progress for a library item and podcast episode.
+    /api/me/items-in-progress:
+        get:
+            tags:
+                - Me
+            parameters:
+                -
+                    name: limit
+                    description: A limit for how many library items to return.
+                    schema:
+                        default: 25
+                        type: integer
+                    in: query
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/GetItemsInProgressResponse'
+                    description: Success
+            operationId: getLibraryItemsInProgress
+            summary: Get Library Items In Progress
+            description: Retrieves library items that are in progress for the authenticated user.
+    /api/me/progress/batch/update:
+        patch:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/BatchUpdateMediaProgressRequest'
+                required: true
+            tags:
+                - Me
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/BatchUpdateMediaProgressResponse'
+                    description: Success
+                '400':
+                    description: The provided array must have a non-zero length.
+            operationId: batchUpdateMediaProgress
+            summary: Batch Create/Update Media Progress
+            description: Batch creates or updates media progress for the authenticated user.
+    /api/me/item/{id}/bookmark:
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/CreateBookmarkRequest'
+                required: true
+            tags:
+                - Me
+            parameters:
+                -
+                    name: id
+                    description: The ID of the library item to create a bookmark for.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AudioBookmark'
+                    description: Success
+                '404':
+                    description: No library item with the provided ID exists.
+            operationId: createBookmark
+            summary: Create a Bookmark
+            description: Creates a bookmark for a library item.
+        patch:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/UpdateBookmarkRequest'
+                required: true
+            tags:
+                - Me
+            parameters:
+                -
+                    name: id
+                    description: The ID of the library item to update a bookmark for.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/AudioBookmark'
+                    description: Success
+                '404':
+                    description: No library item with the provided ID exists or no bookmark at the given time exists.
+                '500':
+                    description: Could not find the bookmark.
+            operationId: updateBookmark
+            summary: Update a Bookmark
+            description: Updates a bookmark for a library item.
+    /api/me/item/{id}/bookmark/{time}:
+        delete:
+            tags:
+                - Me
+            parameters:
+                -
+                    name: id
+                    description: The ID of the library item to remove a bookmark from.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+                -
+                    name: time
+                    description: The time (in seconds) of the bookmark to remove.
+                    schema:
+                        type: integer
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    description: Success
+                '404':
+                    description: No library item with the provided ID exists or no bookmark at the given Time exists.
+                '500':
+                    description: The Time URL parameter must be a number.
+            operationId: removeBookmark
+            summary: Remove a Bookmark
+            description: Removes a bookmark from a library item.
+    /api/me/password:
+        patch:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/ChangePasswordRequest'
+                required: true
+            tags:
+                - Me
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/ChangePasswordResponse'
+                    description: Success
+                '500':
+                    description: Guest users cannot change their password.
+            operationId: changePassword
+            summary: Change Your Password
+            description: Changes the password for the authenticated user.
+    /api/me/sync-local-progress:
+        post:
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/SyncLocalProgressRequest'
+                required: true
+            tags:
+                - Me
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/SyncLocalProgressResponse'
+                    description: Success
+                '500':
+                    description: The localMediaProgress parameter is required.
+            operationId: syncLocalProgress
+            summary: Sync Local Media Progress
+            description: >-
+                Syncs local media progress with the server. For any local media progress with a greater
+                lastUpdate time than the lastUpdate time of the matching media progress on the server, the
+                server's media progress is updated. If the server's lastUpdate time is greater, the local
+                media progress will be returned with the updated information.
+    /api/me/series/{id}/remove-from-continue-listening:
+        get:
+            tags:
+                - Me
+            parameters:
+                -
+                    name: id
+                    description: The ID of the series to remove from continue listening.
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/User'
+                    description: Success
+                '404':
+                    description: No series matching the provided ID was found.
+            operationId: removeSeriesFromContinueListening
+            summary: Remove a Series From Continue Listening
+            description: Removes a series from your "Continue Series" shelf. Your user is returned.
 components:
     schemas:
         Library:
@@ -2645,6 +3059,100 @@ components:
                 media: {}
                 numFiles: 2
                 size: 268990279
+        LibraryItemInProgress:
+            description: A library item including progress information.
+            type: object
+            properties:
+                id:
+                    description: The ID of the library item.
+                    type: string
+                ino:
+                    description: The inode of the library item.
+                    type: string
+                libraryId:
+                    description: The ID of the library.
+                    type: string
+                folderId:
+                    description: The ID of the folder.
+                    type: string
+                path:
+                    description: The path of the library item on the server.
+                    type: string
+                relPath:
+                    description: The relative path of the library item.
+                    type: string
+                isFile:
+                    description: Whether the library item is a single file.
+                    type: boolean
+                mtimeMs:
+                    format: int64
+                    description: Last modified time (ms since epoch).
+                    type: integer
+                ctimeMs:
+                    format: int64
+                    description: Change time (ms since epoch).
+                    type: integer
+                birthtimeMs:
+                    format: int64
+                    description: Creation time (ms since epoch). Will be 0 if unknown.
+                    type: integer
+                addedAt:
+                    format: int64
+                    description: Time the item was added to the library.
+                    type: integer
+                updatedAt:
+                    format: int64
+                    description: Time when item was last updated.
+                    type: integer
+                isMissing:
+                    description: True if item no longer exists.
+                    type: boolean
+                isInvalid:
+                    description: True if item no longer has media files.
+                    type: boolean
+                mediaType:
+                    description: What kind of media the item contains (book or podcast).
+                    type: string
+                media:
+                    oneOf:
+                        -
+                            $ref: '#/components/schemas/BookMinified'
+                        -
+                            $ref: '#/components/schemas/PodcastMinified'
+                    description: Book Minified or Podcast Minified.
+                numFiles:
+                    description: The number of library files.
+                    type: integer
+                size:
+                    description: Total size (in bytes) of the item.
+                    type: integer
+                progressLastUpdate:
+                    format: int64
+                    description: The time (in ms since POSIX epoch) when the corresponding media progress was last updated.
+                    type: integer
+                recentEpisode:
+                    nullable: true
+                    $ref: '#/components/schemas/PodcastEpisode'
+                    description: If the library item is for a podcast, the media progress's corresponding podcast episode. Will not exist for book library items.
+            example:
+                id: li_8gch9ve09orgn4fdz8
+                ino: '649641337522215266'
+                libraryId: lib_c1u6t4p45c35rf0nzd
+                folderId: fol_bev1zuxhb0j0s1wehr
+                path: /audiobooks/Terry Goodkind/Sword of Truth/Wizards First Rule
+                relPath: Terry Goodkind/Sword of Truth/Wizards First Rule
+                isFile: false
+                mtimeMs: 1650621074299
+                ctimeMs: 1650621074299
+                birthtimeMs: 0
+                addedAt: 1650621073750
+                updatedAt: 1650621110769
+                isMissing: false
+                isInvalid: false
+                mediaType: book
+                media: {}
+                numFiles: 2
+                size: 268990279        
         LibraryItemExpanded:
             description: An expanded form of a library item.
             type: object
@@ -6684,6 +7192,195 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/PlaylistItem'
+        GetListeningSessionsResponse:
+            type: object
+            properties:
+                total:
+                    description: The total number of listening sessions.
+                    type: integer
+                numPages:
+                    description: The total number of pages.
+                    type: integer
+                itemsPerPage:
+                    description: The provided itemsPerPage parameter.
+                    type: integer
+                sessions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/PlaybackSession'
+        GetListeningStatsResponse:
+            type: object
+            properties:
+                totalTime:
+                    description: The total time (in seconds) you have listened to library items.
+                    type: integer
+                items:
+                    type: object
+                    additionalProperties:
+                        type: object
+                        properties:
+                            id:
+                                description: The ID of the library item you listened to.
+                                type: string
+                            timeListening:
+                                description: The time (in seconds) you listened to the library item.
+                                type: integer
+                            mediaMetadata:
+                                $ref: '#/components/schemas/BookMetadata'
+                days:
+                    type: object
+                    additionalProperties:
+                        description: The total time you have listened to library items on each day.
+                        type: integer
+                dayOfWeek:
+                    type: object
+                    additionalProperties:
+                        description: The total time you have listened to library items on each day of the week.
+                        type: integer
+                today:
+                    description: The time (in seconds) you have listened to library items today.
+                    type: integer
+                recentSessions:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/PlaybackSession'
+        GetItemsInProgressResponse:
+            type: object
+            properties:
+                libraryItems:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/LibraryItemInProgress'
+        BatchUpdateMediaProgressRequest:
+            type: array
+            items:
+                type: object
+                properties:
+                    libraryItemId:
+                        description: The ID of the library item the media progress is for.
+                        type: string
+                    episodeId:
+                        nullable: true
+                        description: The ID of the podcast episode the media progress is for.
+                        type: string
+                    duration:
+                        format: float
+                        description: The total duration (in seconds) of the media.
+                        type: number
+                    progress:
+                        format: float
+                        description: The percentage completion progress of the media.
+                        type: number
+                    currentTime:
+                        format: float
+                        description: The current time (in seconds) of your progress.
+                        type: number
+                    isFinished:
+                        description: Whether the media is finished.
+                        type: boolean
+                    hideFromContinueListening:
+                        description: Whether the media will be hidden from the "Continue Listening" shelf.
+                        type: boolean
+                    finishedAt:
+                        nullable: true
+                        format: int64
+                        description: The time (in ms since POSIX epoch) when the user finished the media.
+                        type: integer
+                    startedAt:
+                        format: int64
+                        description: The time (in ms since POSIX epoch) when the user started consuming the media.
+                        type: integer
+        UpdateMediaProgressRequest:
+            type: object
+            properties:
+                duration:
+                    format: float
+                    description: The total duration (in seconds) of the media.
+                    type: number
+                progress:
+                    format: float
+                    description: The percentage completion progress of the media.
+                    type: number
+                currentTime:
+                    format: float
+                    description: The current time (in seconds) of your progress.
+                    type: number
+                isFinished:
+                    description: Whether the media is finished.
+                    type: boolean
+                hideFromContinueListening:
+                    description: Whether the media will be hidden from the "Continue Listening" shelf.
+                    type: boolean
+                finishedAt:
+                    nullable: true
+                    format: int64
+                    description: The time (in ms since POSIX epoch) when the user finished the media.
+                    type: integer
+                startedAt:
+                    format: int64
+                    description: The time (in ms since POSIX epoch) when the user started consuming the media.
+                    type: integer
+        CreateBookmarkRequest:
+            type: object
+            properties:
+                time:
+                    description: The time (in seconds) in the book to create the bookmark at.
+                    type: integer
+                title:
+                    description: The title of the bookmark.
+                    type: string
+        UpdateBookmarkRequest:
+            type: object
+            properties:
+                time:
+                    description: The time (in seconds) of the bookmark.
+                    type: integer
+                title:
+                    description: The title of the bookmark.
+                    type: string
+        ChangePasswordRequest:
+            type: object
+            properties:
+                password:
+                    description: Your current password.
+                    type: string
+                newPassword:
+                    description: Your new password.
+                    type: string
+        ChangePasswordResponse:
+            type: object
+            properties:
+                success:
+                    description: Will only exist and be true if the password was updated successfully.
+                    type: boolean
+                error:
+                    description: The error that occurred. Will only exist if there was an error updating your password.
+                    type: string
+        SyncLocalProgressRequest:
+            type: object
+            properties:
+                localMediaProgress:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/MediaProgress'
+        SyncLocalProgressResponse:
+            type: object
+            properties:
+                numServerProgressUpdates:
+                    description: The number of media progress items that were updated on the server.
+                    type: integer
+                localProgressUpdates:
+                    description: >-
+                        Local media progress items with updated information from the server (server more
+                        recent).
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/MediaProgress'
+                serverProgressUpdates:
+                    description: Media progress items that were updated on the server (local more recent).
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/MediaProgress'
     securitySchemes:
         bearerAuth:
             scheme: bearer
