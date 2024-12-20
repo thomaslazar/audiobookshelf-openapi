@@ -1805,9 +1805,9 @@ paths:
                     description: Success
             operationId: getAllCollections
             summary: Get All Collections
+            description: Retrieves all collections.
         post:
             requestBody:
-                description: The request body to create a new collection.
                 content:
                     application/json:
                         schema:
@@ -1828,6 +1828,7 @@ paths:
                     description: libraryId and name are required parameters.
             operationId: createCollection
             summary: Create a Collection
+            description: Creates a collection and returns it.
     /api/collections/{id}:
         get:
             tags:
@@ -1835,17 +1836,16 @@ paths:
             parameters:
                 -
                     name: id
-                    description: The ID of the collection.
                     schema:
                         type: string
                     in: path
                     required: true
                 -
                     name: include
-                    description: >-
-                        A comma-separated list of what to include with the library item. Current option is
-                        'rssfeed'.
                     schema:
+                        description: >-
+                            A comma separated list of what to include with the library item. The only current
+                            option is rssfeed.
                         type: string
                     in: query
             responses:
@@ -1859,9 +1859,29 @@ paths:
                     description: No collection with the specified ID exists.
             operationId: getCollection
             summary: Get a Collection
+            description: Retrieves a collection.
+        delete:
+            tags:
+                - Collections
+            parameters:
+                -
+                    name: id
+                    schema:
+                        type: string
+                    in: path
+                    required: true
+            responses:
+                '200':
+                    description: Success
+                '403':
+                    description: A user with delete permissions is required to delete a collection.
+                '404':
+                    description: No collection with the specified ID exists.
+            operationId: deleteCollection
+            summary: Delete a Collection
+            description: Deletes a collection from the database.
         patch:
             requestBody:
-                description: The request body to update a collection.
                 content:
                     application/json:
                         schema:
@@ -1872,7 +1892,6 @@ paths:
             parameters:
                 -
                     name: id
-                    description: The ID of the collection.
                     schema:
                         type: string
                     in: path
@@ -1890,10 +1909,10 @@ paths:
                     description: No collection with the specified ID exists.
             operationId: updateCollection
             summary: Update a Collection
+            description: Updates a collection and returns it.
     /api/collections/{id}/book:
         post:
             requestBody:
-                description: The request body to add a book to the collection.
                 content:
                     application/json:
                         schema:
@@ -1904,7 +1923,6 @@ paths:
             parameters:
                 -
                     name: id
-                    description: The ID of the collection.
                     schema:
                         type: string
                     in: path
@@ -1920,22 +1938,26 @@ paths:
                     description: A user with update permissions is required to update collections.
                 '404':
                     description: No collection with the specified ID exists.
+                '500':
+                    description: >-
+                        The provided library item ID could not be found, is in a different library, or is
+                        already in the collection.
             operationId: addBookToCollection
             summary: Add a Book to a Collection
+            description: Adds a book to a collection and returns the collection.
+    /api/collections/{id}/book/{bookId}:
         delete:
             tags:
                 - Collections
             parameters:
                 -
                     name: id
-                    description: The ID of the collection.
                     schema:
                         type: string
                     in: path
                     required: true
                 -
                     name: bookId
-                    description: The ID of the book to remove from the collection.
                     schema:
                         type: string
                     in: path
@@ -1948,26 +1970,25 @@ paths:
                                 $ref: '#/components/schemas/CollectionExpanded'
                     description: Success
                 '403':
-                    description: A user with delete permissions is required to remove books from collections.
+                    description: A user with delete permissions is required to remove a book from a collection.
                 '404':
                     description: No collection with the specified ID exists.
             operationId: removeBookFromCollection
             summary: Remove a Book from a Collection
+            description: Removes a book from a collection and returns the collection.
     /api/collections/{id}/batch/add:
         post:
             requestBody:
-                description: The request body containing books to add.
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/BatchBookActionRequest'
+                            $ref: '#/components/schemas/BatchUpdateBooksRequest'
                 required: true
             tags:
                 - Collections
             parameters:
                 -
                     name: id
-                    description: The ID of the collection.
                     schema:
                         type: string
                     in: path
@@ -1987,21 +2008,20 @@ paths:
                     description: The provided books array must not be empty.
             operationId: batchAddBooksToCollection
             summary: Batch Add Books to a Collection
+            description: Batch adds books to a collection and returns the collection.
     /api/collections/{id}/batch/remove:
         post:
             requestBody:
-                description: The request body containing books to remove.
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/BatchBookActionRequest'
+                            $ref: '#/components/schemas/BatchUpdateBooksRequest'
                 required: true
             tags:
                 - Collections
             parameters:
                 -
                     name: id
-                    description: The ID of the collection.
                     schema:
                         type: string
                     in: path
@@ -2021,6 +2041,7 @@ paths:
                     description: The provided books array must not be empty.
             operationId: batchRemoveBooksFromCollection
             summary: Batch Remove Books from a Collection
+            description: Batch removes books from a collection and returns the collection.
 components:
     schemas:
         Library:
@@ -5838,6 +5859,11 @@ components:
             properties:
                 cover:
                     type: string
+        UploadItemCoverRequestJson:
+            type: object
+            properties:
+                url:
+                    type: string
         UpdateItemCoverResponse:
             type: object
             properties:
@@ -6287,33 +6313,17 @@ components:
                     items:
                         $ref: '#/components/schemas/PlaybackSession'
         CreateCollectionRequest:
-            required:
-                - libraryId
-                - name
             type: object
             properties:
                 libraryId:
-                    description: The ID of the library the collection belongs to.
                     type: string
                 name:
-                    description: The name of the collection.
                     type: string
                 description:
                     nullable: true
-                    description: The collection's description.
                     type: string
                 books:
-                    description: The IDs of book library items that are in the collection.
-                    type: array
-                    items:
-                        type: string
-        BatchBookActionRequest:
-            required:
-                - books
-            type: object
-            properties:
-                books:
-                    description: The IDs of the book library items to process.
+                    default: []
                     type: array
                     items:
                         type: string
@@ -6321,28 +6331,28 @@ components:
             type: object
             properties:
                 libraryId:
-                    description: The ID of the library the collection belongs to.
                     type: string
                 name:
-                    description: The name of the collection.
                     type: string
                 description:
                     nullable: true
-                    description: The collection's description.
                     type: string
                 books:
-                    description: The IDs of book library items that are in the collection.
                     type: array
                     items:
                         type: string
         AddBookToCollectionRequest:
-            required:
-                - id
             type: object
             properties:
                 id:
-                    description: The ID of the book library item to add to the collection.
                     type: string
+        BatchUpdateBooksRequest:
+            type: object
+            properties:
+                books:
+                    type: array
+                    items:
+                        type: string
         GetAllCollectionsResponse:
             type: object
             properties:
@@ -6350,19 +6360,6 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/CollectionExpanded'
-        RemoveBookFromCollectionRequest:
-            required:
-                - bookId
-            type: object
-            properties:
-                bookId:
-                    description: The ID of the book library item to remove from the collection.
-                    type: string
-        UploadItemCoverRequestJson:
-            type: object
-            properties:
-                url:
-                    type: string
     securitySchemes:
         bearerAuth:
             scheme: bearer

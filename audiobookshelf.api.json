@@ -37,13 +37,6 @@
                         "description": "Success"
                     },
                     "401": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
                         "description": "Invalid username or password."
                     }
                 },
@@ -70,16 +63,6 @@
                 "responses": {
                     "200": {
                         "description": "Success"
-                    },
-                    "401": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Unauthorized"
                     }
                 },
                 "security": [
@@ -161,34 +144,13 @@
                 ],
                 "responses": {
                     "302": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RedirectResponse"
-                                }
-                            }
-                        },
-                        "description": "Redirect to the OAuth2 provider"
+                        "description": "Success, save the state-parameter and follow the redirect"
                     },
                     "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Invalid parameter"
+                        "description": "You submitted an invalid parameter"
                     },
                     "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Internal Server Error"
+                        "description": "Error in the flow"
                     }
                 },
                 "operationId": "oauth2Authorize",
@@ -239,47 +201,19 @@
                                 }
                             }
                         },
-                        "description": "Success with user data"
+                        "description": "Success, user data in payload"
                     },
                     "302": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RedirectResponse"
-                                }
-                            }
-                        },
-                        "description": "Redirect (if no redirect_uri was provided)"
+                        "description": "Success, redirect to /login (internal use)"
                     },
                     "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "No session or invalid state/code"
+                        "description": "You have no session"
                     },
                     "401": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Unauthorized by SSO provider"
+                        "description": "Error from the SSO provider"
                     },
                     "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Internal Server Error"
+                        "description": "Error in the flow"
                     }
                 },
                 "operationId": "oauth2Callback",
@@ -314,34 +248,13 @@
                 ],
                 "responses": {
                     "302": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/RedirectResponse"
-                                }
-                            }
-                        },
-                        "description": "Redirects to your original redirect_uri"
+                        "description": "Success"
                     },
                     "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "No state or no redirect_uri associated"
+                        "description": "No state or no redirect_uri associated to state"
                     },
                     "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Internal Server Error"
+                        "description": "Error in the flow"
                     }
                 },
                 "operationId": "oauth2MobileRedirect",
@@ -369,14 +282,7 @@
                         "description": "Success"
                     },
                     "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Server has already been initialized"
+                        "description": "The server has already been initialized."
                     }
                 },
                 "operationId": "initializeServer",
@@ -460,13 +366,6 @@
                         "description": "Success"
                     },
                     "401": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
                         "description": "Unauthorized"
                     }
                 },
@@ -505,13 +404,6 @@
                         "description": "Success"
                     },
                     "401": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
                         "description": "Unauthorized"
                     }
                 },
@@ -561,14 +453,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -606,14 +491,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -661,14 +539,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -774,14 +645,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -821,14 +685,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -868,14 +725,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -958,14 +808,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -1054,14 +897,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -1115,14 +951,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -1181,14 +1010,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -1228,14 +1050,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -1291,24 +1106,10 @@
                         "description": "Success"
                     },
                     "400": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Bad Request (no query string)"
+                        "description": "No query string"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -1348,14 +1149,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -1395,14 +1189,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -1442,24 +1229,10 @@
                         "description": "Success (no content)"
                     },
                     "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Forbidden (admin required)"
+                        "description": "An admin user is required to match library items."
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -1506,24 +1279,10 @@
                         "description": "Success (no content)"
                     },
                     "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Forbidden (admin required)"
+                        "description": "An admin user is required to match library items."
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -1577,14 +1336,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The user cannot access the library, or no library with the provided ID exists."
                     }
                 },
                 "security": [
@@ -1624,24 +1376,10 @@
                         "description": "Success"
                     },
                     "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Forbidden (admin required)"
+                        "description": "An admin user is required to match library items."
                     },
                     "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Internal Server Error"
+                        "description": "One or more of the IDs do not match any libraries."
                     }
                 },
                 "security": [
@@ -1664,24 +1402,10 @@
                         "description": "Success"
                     },
                     "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Forbidden - admin required"
+                        "description": "An admin user is required to delete all library items."
                     },
                     "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Internal Server Error"
+                        "description": "Something went wrong with recreating the library item database."
                     }
                 },
                 "security": [
@@ -1747,16 +1471,6 @@
                             }
                         },
                         "description": "Success"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
                     }
                 },
                 "security": [
@@ -1785,16 +1499,6 @@
                 "responses": {
                     "200": {
                         "description": "Success"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
                     }
                 },
                 "security": [
@@ -1852,16 +1556,6 @@
                             }
                         },
                         "description": "Success"
-                    },
-                    "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
                     }
                 },
                 "security": [
@@ -1922,10 +1616,10 @@
                         "description": "Success (image data)"
                     },
                     "404": {
-                        "description": "Not Found"
+                        "description": "Either no library item exists with the given ID, or the item does not have a cover."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "There was an error when attempting to read the cover file."
                     }
                 },
                 "security": [
@@ -1978,13 +1672,13 @@
                         "description": "Success"
                     },
                     "400": {
-                        "description": "Bad Request"
+                        "description": "The request did not contain a file or URL."
                     },
                     "403": {
-                        "description": "Forbidden"
+                        "description": "The user does not have permission to upload."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "Unknown error."
                     }
                 },
                 "security": [
@@ -2060,10 +1754,10 @@
                         "description": "Success"
                     },
                     "400": {
-                        "description": "Bad Request"
+                        "description": "The cover parameter is required."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "Either the submitted path is invalid, does not exist, is not an image, or the server failed to copy the image to the library item's directory."
                     }
                 },
                 "security": [
@@ -2160,14 +1854,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The library item does not have any audio tracks to play."
                     }
                 },
                 "security": [
@@ -2225,14 +1912,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "The library item does not have any audio tracks to play."
                     }
                 },
                 "security": [
@@ -2282,7 +1962,7 @@
                         "description": "Success"
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "The library item's media type must be book for this endpoint."
                     }
                 },
                 "security": [
@@ -2322,10 +2002,10 @@
                         "description": "Success"
                     },
                     "403": {
-                        "description": "Forbidden"
+                        "description": "An admin user is required to scan a library item."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "Rescanning file library items is not yet supported."
                     }
                 },
                 "security": [
@@ -2365,10 +2045,10 @@
                         "description": "Success"
                     },
                     "403": {
-                        "description": "Forbidden"
+                        "description": "An admin user is required to get a library item's tone metadata object."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "The library item has missing parts, does not have audio files, or is not a book."
                     }
                 },
                 "security": [
@@ -2418,13 +2098,13 @@
                         "description": "Success"
                     },
                     "400": {
-                        "description": "Bad Request"
+                        "description": "The provided chapter list must have a non-zero length."
                     },
                     "403": {
-                        "description": "Forbidden"
+                        "description": "The user does not have permission to update a library item."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "The library item has missing parts, does not have audio files, or is not a book."
                     }
                 },
                 "security": [
@@ -2472,7 +2152,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "description": "Not Found"
+                        "description": "The library does not have any audio files to scan or the requested audio file index does not exist."
                     }
                 },
                 "security": [
@@ -2505,13 +2185,13 @@
                         "description": "Success"
                     },
                     "403": {
-                        "description": "Forbidden"
+                        "description": "The user does not have permission to delete library items."
                     },
                     "404": {
-                        "description": "Not Found"
+                        "description": "None of the IDs provided match any library items."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "The libraryItemIds array must have a non-zero length."
                     }
                 },
                 "security": [
@@ -2551,10 +2231,10 @@
                         "description": "Success"
                     },
                     "403": {
-                        "description": "Forbidden"
+                        "description": "The user does not have permission to update library items."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "The provided array must have a non-zero length."
                     }
                 },
                 "security": [
@@ -2594,7 +2274,7 @@
                         "description": "Success"
                     },
                     "403": {
-                        "description": "Forbidden"
+                        "description": "The libraryItemIds array must have a non-zero length."
                     }
                 },
                 "security": [
@@ -2627,10 +2307,10 @@
                         "description": "Success"
                     },
                     "403": {
-                        "description": "Forbidden"
+                        "description": "An admin user is required to quick match library items."
                     },
                     "500": {
-                        "description": "Internal Server Error"
+                        "description": "The libraryItemIds array must have a non-zero length."
                     }
                 },
                 "security": [
@@ -2660,14 +2340,7 @@
                         "description": "Success"
                     },
                     "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Forbidden"
+                        "description": "An admin user is required to get all users."
                     }
                 },
                 "security": [
@@ -2705,24 +2378,10 @@
                         "description": "Success"
                     },
                     "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Forbidden"
+                        "description": "The user does not have permission to create new users."
                     },
                     "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Internal Server Error"
+                        "description": "Either the username provided is already taken, or the server failed to save the new user."
                     }
                 },
                 "security": [
@@ -2752,14 +2411,7 @@
                         "description": "Success"
                     },
                     "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Forbidden"
+                        "description": "An admin user is required to get users."
                     }
                 },
                 "security": [
@@ -2799,24 +2451,10 @@
                         "description": "Success"
                     },
                     "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Forbidden"
+                        "description": "An admin user is required to get users."
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "No user with the provided ID exists."
                     }
                 },
                 "security": [
@@ -2854,24 +2492,10 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "No user with the provided ID exists."
                     },
                     "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Internal Server Error"
+                        "description": "The root user cannot be deleted and users cannot delete themselves."
                     }
                 },
                 "security": [
@@ -2919,34 +2543,13 @@
                         "description": "Success"
                     },
                     "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Forbidden"
+                        "description": "An admin user is required to edit users and the root user is required to edit the root user."
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "No user with the provided ID exists."
                     },
                     "500": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Internal Server Error"
+                        "description": "The provided username is already taken."
                     }
                 },
                 "security": [
@@ -3000,14 +2603,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "No user with the provided ID exists."
                     }
                 },
                 "security": [
@@ -3047,14 +2643,7 @@
                         "description": "Success"
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "No user with the provided ID exists."
                     }
                 },
                 "security": [
@@ -3094,24 +2683,10 @@
                         "description": "Success"
                     },
                     "403": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Forbidden"
+                        "description": "Only the root user can purge the root user's media progress."
                     },
                     "404": {
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ErrorMessage"
-                                }
-                            }
-                        },
-                        "description": "Not Found"
+                        "description": "No user with the provided ID exists."
                     }
                 },
                 "security": [
@@ -3122,6 +2697,381 @@
                 "operationId": "purgeUserMediaProgress",
                 "summary": "Purge a User's Media Progress",
                 "description": "Removes the user's media progress for items that no longer exist."
+            }
+        },
+        "/api/collections": {
+            "get": {
+                "tags": [
+                    "Collections"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetAllCollectionsResponse"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    }
+                },
+                "operationId": "getAllCollections",
+                "summary": "Get All Collections",
+                "description": "Retrieves all collections."
+            },
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCollectionRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Collections"
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CollectionExpanded"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "A user with update permissions is required to create collections."
+                    },
+                    "500": {
+                        "description": "libraryId and name are required parameters."
+                    }
+                },
+                "operationId": "createCollection",
+                "summary": "Create a Collection",
+                "description": "Creates a collection and returns it."
+            }
+        },
+        "/api/collections/{id}": {
+            "get": {
+                "tags": [
+                    "Collections"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "include",
+                        "schema": {
+                            "description": "A comma separated list of what to include with the library item. The only current option is rssfeed.",
+                            "type": "string"
+                        },
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CollectionExpanded"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "404": {
+                        "description": "No collection with the specified ID exists."
+                    }
+                },
+                "operationId": "getCollection",
+                "summary": "Get a Collection",
+                "description": "Retrieves a collection."
+            },
+            "delete": {
+                "tags": [
+                    "Collections"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "A user with delete permissions is required to delete a collection."
+                    },
+                    "404": {
+                        "description": "No collection with the specified ID exists."
+                    }
+                },
+                "operationId": "deleteCollection",
+                "summary": "Delete a Collection",
+                "description": "Deletes a collection from the database."
+            },
+            "patch": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCollectionRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Collections"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CollectionExpanded"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "A user with update permissions is required to update collections."
+                    },
+                    "404": {
+                        "description": "No collection with the specified ID exists."
+                    }
+                },
+                "operationId": "updateCollection",
+                "summary": "Update a Collection",
+                "description": "Updates a collection and returns it."
+            }
+        },
+        "/api/collections/{id}/book": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddBookToCollectionRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Collections"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CollectionExpanded"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "A user with update permissions is required to update collections."
+                    },
+                    "404": {
+                        "description": "No collection with the specified ID exists."
+                    },
+                    "500": {
+                        "description": "The provided library item ID could not be found, is in a different library, or is already in the collection."
+                    }
+                },
+                "operationId": "addBookToCollection",
+                "summary": "Add a Book to a Collection",
+                "description": "Adds a book to a collection and returns the collection."
+            }
+        },
+        "/api/collections/{id}/book/{bookId}": {
+            "delete": {
+                "tags": [
+                    "Collections"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "name": "bookId",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CollectionExpanded"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "A user with delete permissions is required to remove a book from a collection."
+                    },
+                    "404": {
+                        "description": "No collection with the specified ID exists."
+                    }
+                },
+                "operationId": "removeBookFromCollection",
+                "summary": "Remove a Book from a Collection",
+                "description": "Removes a book from a collection and returns the collection."
+            }
+        },
+        "/api/collections/{id}/batch/add": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BatchUpdateBooksRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Collections"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CollectionExpanded"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "A user with update permissions is required to update collections."
+                    },
+                    "404": {
+                        "description": "No collection with the specified ID exists."
+                    },
+                    "500": {
+                        "description": "The provided books array must not be empty."
+                    }
+                },
+                "operationId": "batchAddBooksToCollection",
+                "summary": "Batch Add Books to a Collection",
+                "description": "Batch adds books to a collection and returns the collection."
+            }
+        },
+        "/api/collections/{id}/batch/remove": {
+            "post": {
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BatchUpdateBooksRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "Collections"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CollectionExpanded"
+                                }
+                            }
+                        },
+                        "description": "Success"
+                    },
+                    "403": {
+                        "description": "A user with update permissions is required to update collections."
+                    },
+                    "404": {
+                        "description": "No collection with the specified ID exists."
+                    },
+                    "500": {
+                        "description": "The provided books array must not be empty."
+                    }
+                },
+                "operationId": "batchRemoveBooksFromCollection",
+                "summary": "Batch Remove Books from a Collection",
+                "description": "Batch removes books from a collection and returns the collection."
             }
         }
     },
@@ -7557,11 +7507,6 @@
                     }
                 }
             },
-            "RedirectResponse": {
-                "description": "Response for redirects (302). No content returned.",
-                "type": "object",
-                "additionalProperties": false
-            },
             "AuthOpenIDCallbackResponse": {
                 "required": [
                     "user",
@@ -8107,6 +8052,14 @@
                 "type": "object",
                 "properties": {
                     "cover": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UploadItemCoverRequestJson": {
+                "type": "object",
+                "properties": {
+                    "url": {
                         "type": "string"
                     }
                 }
@@ -8768,34 +8721,76 @@
                     }
                 }
             },
-            "GetUserResponse": {
-                "required": [
-                    "user"
-                ],
+            "CreateCollectionRequest": {
                 "type": "object",
                 "properties": {
-                    "user": {
-                        "$ref": "#/components/schemas/User"
+                    "libraryId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "nullable": true,
+                        "type": "string"
+                    },
+                    "books": {
+                        "default": [],
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 }
             },
-            "ErrorMessage": {
-                "required": [
-                    "error"
-                ],
+            "UpdateCollectionRequest": {
                 "type": "object",
                 "properties": {
-                    "error": {
-                        "description": "A description of the error.",
+                    "libraryId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "nullable": true,
+                        "type": "string"
+                    },
+                    "books": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "AddBookToCollectionRequest": {
+                "type": "object",
+                "properties": {
+                    "id": {
                         "type": "string"
                     }
                 }
             },
-            "UploadItemCoverRequestJson": {
+            "BatchUpdateBooksRequest": {
                 "type": "object",
                 "properties": {
-                    "url": {
-                        "type": "string"
+                    "books": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "GetAllCollectionsResponse": {
+                "type": "object",
+                "properties": {
+                    "collections": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CollectionExpanded"
+                        }
                     }
                 }
             }
