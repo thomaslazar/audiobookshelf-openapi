@@ -1,0 +1,12 @@
+{
+  "projectName": "audiobookshelf-server",
+  "projectVersion": "1.0.0",
+  "usePromise": true,
+  "useES6": true,
+  "controllerPackage": "controllers",
+  "enablePostProcessFile": true,
+  "generateModels": true,
+  "generateRoutes": true,
+  "routeIndexFile": true,
+  "withInterfaces": true
+}
