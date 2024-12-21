@@ -2807,6 +2807,33 @@ paths:
             operationId: removeSeriesFromContinueListening
             summary: Remove a Series From Continue Listening
             description: Removes a series from your "Continue Series" shelf. Your user is returned.
+    /api/items/{id}/ebook:
+        get:
+            tags:
+                - LibraryItems
+            responses:
+                '200':
+                    content:
+                        '*/*':
+                            schema:
+                                format: binary
+                                type: string
+                    description: Success
+                '404':
+                    description: The library item does not have any ebook data to download.
+            security:
+                -
+                    bearerAuth: []
+            operationId: getItemEbook
+            summary: Get a Library Item's Ebook Content
+            description: Retrieves a library item's ebook binary data.
+        parameters:
+            -
+                name: id
+                schema:
+                    type: string
+                in: path
+                required: true
 components:
     schemas:
         Library:
@@ -3324,10 +3351,10 @@ components:
                 media:
                     oneOf:
                         -
-                            $ref: '#/components/schemas/BookExpanded'
+                            $ref: '#/components/schemas/BookMinified'
                         -
-                            $ref: '#/components/schemas/PodcastExpanded'
-                    description: Book Expanded or Podcast Expanded.
+                            $ref: '#/components/schemas/PodcastMinified'
+                    description: Book Minified or Podcast Minified.
                 libraryFiles:
                     description: The item's files.
                     type: array
@@ -3361,7 +3388,7 @@ components:
             description: A book object.
             type: object
             properties:
-                libraryItemId:
+                id:
                     description: The ID of the library item that contains the book.
                     type: string
                 metadata:
@@ -3404,6 +3431,9 @@ components:
             description: A minified version of Book.
             type: object
             properties:
+                id:
+                    description: The ID of the library item that contains the book.
+                    type: string
                 metadata:
                     $ref: '#/components/schemas/BookMetadataMinified'
                     description: Minified book metadata.
@@ -3449,7 +3479,7 @@ components:
             description: An expanded version of Book.
             type: object
             properties:
-                libraryItemId:
+                id:
                     description: ID of the library item.
                     type: string
                 metadata:
@@ -3566,6 +3596,9 @@ components:
                 explicit:
                     description: Whether the book has been marked as explicit.
                     type: boolean
+                abridged:
+                    description: Whether the book is abridged.
+                    type: boolean
             example:
                 title: Wizards First Rule
                 authors: []
@@ -3579,6 +3612,7 @@ components:
                 description: The masterpiece that started Terry Goodkind's...
                 asin: B002V0QK4C
                 explicit: false
+                abridged: false
         BookMetadataMinified:
             description: Minified Book Metadata.
             type: object
@@ -3646,6 +3680,9 @@ components:
                 explicit:
                     description: Whether the book is explicit.
                     type: boolean
+                abridged:
+                    description: Whether the book is abridged.
+                    type: boolean
             example:
                 title: Wizards First Rule
                 titleIgnorePrefix: Wizards First Rule
@@ -3660,6 +3697,7 @@ components:
                 description: The masterpiece that started Terry Goodkind's...
                 asin: B002V0QK4C
                 explicit: false
+                abridged: false
         BookMetadataExpanded:
             description: Expanded Book Metadata.
             type: object
